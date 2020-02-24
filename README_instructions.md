@@ -61,17 +61,18 @@ Oliver (PO) took these notes from a conversation with the customer Alice.
 * If you can sort this all our then please make suggestions for improvements. 
 * The deadline for the project to be completed is 2pm on 20th March.
 
-Please note that Alice can change her mind. Oliver has promised we are an Agile organisation
+Please note that Alice can change her mind. Oliver has promised we are an Agile organization
 so remember the 2nd Agile Manifesto Principle:
 
 > Welcome changing requirements, even late in development. 
 > Agile processes harness change for the customer’s competitive advantage.
 
-* there will be an additional feature request posted on 10th March!
+* there will be an additional feature request posted on 8th March. 
 
 ## Senior developer `osmart` rules.
 
 `osmart` is a grumpy fellow but you need to work with him. So please try to keep to his rules.
+Working with difficult colleagues is all part of the game.
 
 * `osmart` has already produced a proof of concept 
   * Please see Jupyter NoteBook that downloads the Covid-19 dataset:
@@ -92,20 +93,24 @@ so remember the 2nd Agile Manifesto Principle:
   Please open a GitHub issue with the help tag asking for a slot and assign it to `osmart`
 * `osmart` will not look at any code that has not been committed and will not look at emails.
 * You must use issue pages to get help. `osmart` will respond to help requests with 4 
-   working days and will then offer help via zoom.  No help requests are to be posted from
+  working days and will then offer help in person / via zoom.  
+  No help requests are to be posted from
   after Sunday 15th March. **Do not leave it until the last minute to do the work**
 * Initial work to satisfy Alice's initial absolute requirement should be done in the master 
   branch. 
-* All subseqent work for additional requirements should be done in separate feature branch(es). 
+* All subsequent work for additional requirements should be done in separate feature branch(es). 
   Do not merge work back to master unless `osmart` agrees
 * `osmart` wants you to use a class structure for the work that he will provide for you. 
 * Although you can discuss the project with other apprentices you should not share code or
   documentation with each other.
   The final check list for the project that must be submitted via TurnItIn will 
   include 'This is my own work' declaration..
-  Plagarism checks will be conducted. Please review 
-  [2019/20 Information about Assessment Offences](https://canvas.anglia.ac.uk/courses/14266/pages/2019-slash-20-information-about-assessment-offences).
+  Plagiarism checks will be conducted. Please review 
+  [2019/20 Information about Assessment Offenses](https://canvas.anglia.ac.uk/courses/14266/pages/2019-slash-20-information-about-assessment-offences).
   You can reuse code that you have written provided the commit message clearly states
   where this is sourced from.
- 
+
+## Marking Scheme 
+
+Please see Assignment Canvas page https://canvas.anglia.ac.uk/courses/14266/assignments/84677
 
