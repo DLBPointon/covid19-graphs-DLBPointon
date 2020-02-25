@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+"""command-line script to be installed from pip"""
+from covid19_graphs.command_line_script import main
+
+
+main()
