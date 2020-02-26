@@ -1,6 +1,8 @@
 """tool to download and process COVID-19 data"""
 import argparse
 import logging
+import requests
+import sys
 from covid19_graphs.covid19_processing import Covid19Processing
 
 
@@ -16,10 +18,17 @@ def parse_command_line_args(test_override=None):
     returns the args namespace that can be used for control
     """
     parser = argparse.ArgumentParser(description=__doc__)
+
     help_ = 'directory for output files '
-    parser.add_argument('out_dir', metavar='OUT_DIR', help=help_)
+    parser.add_argument('out_dir',
+                        metavar='OUT_DIR',
+                        help=help_)
+
     help_ = 'turn on debug message logging output'
-    parser.add_argument('-d', '--debug', action='store_true', help=help_)
+    parser.add_argument('-d', '--debug',
+                        action='store_true',
+                        help=help_)
+
     if test_override is not None:
         args = parser.parse_args(test_override)
     else:
@@ -38,8 +47,18 @@ def main():
     out_dir = args.out_dir
     logging.debug(f'args namespace: {args}')
     logging.debug(f'will output to directory: {out_dir}')
-    c_process = Covid19Processing()
-    c_process.download_from_github()
-    c_process.process_data()
-    c_process.create_out_dir(out_dir)
-    c_process.write_csv_files(out_dir)
+
+    file_names = ['time_series_19-covid-Confirmed.csv',
+                  'time_series_19-covid-Deaths.csv',
+                  'time_series_19-covid-Recovered.csv']
+    
+    url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
+    folder = 'csse_covid_19_data/csse_covid_19_time_series/'
+    full_url = f'{url}{folder}'
+
+    for file in file_names:
+        c_process = Covid19Processing(file, out_dir, full_url)
+        c_process.download_from_github()
+        c_process.process_data()
+        c_process.create_out_dir()
+        c_process.write_csv_files()
