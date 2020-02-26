@@ -51,7 +51,7 @@ def main():
     file_names = ['time_series_19-covid-Confirmed.csv',
                   'time_series_19-covid-Deaths.csv',
                   'time_series_19-covid-Recovered.csv']
-    
+
     url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
     folder = 'csse_covid_19_data/csse_covid_19_time_series/'
     full_url = f'{url}{folder}'

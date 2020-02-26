@@ -46,9 +46,10 @@ class Covid19Processing:
             try:
                 os.makedirs(self.out_dir, access_rights)
             except OSError:
-                logging.debug(f'Creation of directory has failed at: {self.out_dir}')
+                logging.debug(f'Creation of directory has failed at:'
+                              f'{self.out_dir}')
             else:
-                logging.debug(f'''Successfully created the directory path at: 
+                logging.debug(f'''Successfully created the directory path at:
                                     {self.out_dir}''')
         return self.out_dir
 
@@ -62,7 +63,8 @@ class Covid19Processing:
         status_code = self.response.status_code
         if status_code == 200:
             print('Success response gave status code 200')
-            with open(f'{self.out_dir}/downloaded_{self.filename}', 'wb') as csv_written:
+            with open(f'{self.out_dir}/downloaded_{self.filename}',
+                      'wb') as csv_written:
                 csv_written.write(self.response.content)
         else:
             print(f'Error in requests download status_code={status_code}')
@@ -74,9 +76,11 @@ class Covid19Processing:
         """processes the stored data into a form for CSV files"""
         logging.debug('process_data called')
 
-        self.data_csv = pd.read_csv(f'{self.out_dir}/downloaded_{self.filename}')
+        self.data_csv = pd.read_csv(f'{self.out_dir}/downloaded_'
+                                    f'{self.filename}')
         return self.data_csv
 
     def write_csv_files(self):
         """writes CSV files to out_dir"""
-        logging.debug(f'write_csv_files called. File saved to: {self.out_dir}')
+        logging.debug(f'write_csv_files called. File saved to:'
+                      f'{self.out_dir}')
