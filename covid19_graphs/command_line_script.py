@@ -1,4 +1,10 @@
-"""tool to download and process COVID-19 data"""
+"""
+------------------------------------------------------------------------------
+-- Covid19_Processing Scripts - tools to download and process COVID-19 data --
+------------------------------------------------------------------------------
+------------------------------- By S.I.D 1836811 -----------------------------
+------------------------------------------------------------------------------
+"""
 import argparse
 import logging
 import requests
@@ -58,7 +64,7 @@ def main():
 
     for file in file_names:
         c_process = Covid19Processing(file, out_dir, full_url)
-        c_process.download_from_github()
-        c_process.process_data()
         c_process.create_out_dir()
+        c_process.download_from_github()
+        map = c_process.process_data()
         c_process.write_csv_files()
