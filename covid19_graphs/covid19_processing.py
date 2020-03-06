@@ -82,26 +82,26 @@ class Covid19Processing:
 
         pd_time_series = pd.read_csv(f'{self.out_dir}/downloaded/{self.filename}')
         pd_time_series = pd_time_series.drop('Lat', axis = 1)
-        pd_time_series = pd_time_series.drop('Long', axis=1)
+        pd_time_series = pd_time_series.drop('Long', axis = 1)
         no_of_dates = len(pd_time_series.columns)-2
-        dateindex = pd.date_range(start = '1-22-2020', periods = no_of_dates, freq='D').strftime('%d-%m-%Y')
+        dateindex = pd.date_range(start = '1-22-2020', periods = no_of_dates, freq = 'D').strftime('%d-%m')
 
         new_cols = ['Province/State', 'Country/Region']
         for index in dateindex:
             new_cols.append(index)
         pd_time_series.columns = new_cols
 
-        pd_time_series = pd_time_series.drop('Province/State', axis = 1)
-        pd_time_series = pd_time_series.set_index('Country/Region')
-        pd_time_series = pd_time_series.T
-        pd_time_series.loc[:, 'Daily Total'] = pd_time_series.sum(numeric_only=True, axis=1)
+        pd_time_series = pd_time_series.drop('Country/Region', axis = 1)
+        pd_edit_series = pd_time_series.set_index('Province/State')
+        #pd_edit_series = pd_time_series
         
-        print(pd_time_series)
-    
-        self.pd_time_series = pd_time_series
-        return self.pd_time_series
+        pd_edit_series = pd_edit_series.T
+        # pd_edit_series.loc[:, 'Daily Total'] = pd_edit_series.sum(numeric_only=True, axis=1)
 
-    def write_csv_files(self):
+        return pd_edit_series
+
+    def write_csv_files(self, pd_edit_series):
         """writes CSV files to out_dir"""
         logging.debug(f'write_csv_files called. File saved to:'
                       f'{self.out_dir}/edited_csv/{self.filename}')
+        pd_edit_series.to_csv(f'{self.out_dir}/edited_csv/edited_{self.filename}', encoding='utf-8')

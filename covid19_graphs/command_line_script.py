@@ -66,5 +66,6 @@ def main():
         c_process = Covid19Processing(file, out_dir, full_url)
         c_process.create_out_dir()
         c_process.download_from_github()
-        map = c_process.process_data()
-        c_process.write_csv_files()
+        pd_edit_series = c_process.process_data()
+        c_process.write_csv_files(pd_edit_series)
+        c_process.plot_data(pd_edit_series)
