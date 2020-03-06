@@ -36,9 +36,15 @@ island of [Muck](https://en.wikipedia.org/wiki/Muck,_Scotland).
 Oliver (PO) took these notes from a conversation with the customer Alice.
 * We really need an automatic way to get data from the CSSEGISandData repository as 
   manually downloading and processing the CSV is a real pain. We want a command-line 
-  script that Jane can run and download and process the data to produce a 
-  single CSV file with summary data
+  script that Jane can run and download and process the data to produce ~~a 
+  single CSV file~~ CSV file(s) with summary data
   so we can load into Excel and produce graphs like the Guardian ones above.
+
+  > **Clarification 06 March: We do not mind if you produce a single CSV file or separate CSV files for 'Confirmed' 'Deaths' and 'Recovered'
+  > As long as the filenames and the title rows clearly show the what is what.**
+  > see https://canvas.anglia.ac.uk/courses/14266/discussion_topics/135698
+
+
   The dates should be down the page. This is an absolute priority.
   * *The tool needs to download the latest data from the repository with no manual intervention*
 * Then we would like the CSV file to be extended to provide analysis of
@@ -67,7 +73,11 @@ so remember the 2nd Agile Manifesto Principle:
 > Welcome changing requirements, even late in development. 
 > Agile processes harness change for the customer’s competitive advantage.
 
-* there will be an additional feature request posted on 8th March. 
+* there will be an additional feature request posted before 8th March. 
+
+>
+> Please note the additional feature request 
+> was posted on 05 March at https://canvas.anglia.ac.uk/courses/14266/discussion_topics/135617 
 
 ## Senior developer `osmart` rules.
 
