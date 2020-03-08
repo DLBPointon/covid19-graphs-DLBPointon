@@ -68,4 +68,6 @@ def main():
         c_process.download_from_github()
         pd_edit_series = c_process.process_data()
         c_process.write_csv_files(pd_edit_series)
-        c_process.plot_data(pd_edit_series)
+        csv_list, data = c_process.data(pd_edit_series)
+        c_process.write_new_csv(pd_edit_series, csv_list)
+        c_process.plot_data(data)
