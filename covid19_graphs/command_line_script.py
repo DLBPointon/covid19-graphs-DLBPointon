@@ -71,3 +71,4 @@ def main():
         csv_list, data = c_process.data(pd_edit_series)
         c_process.write_new_csv(pd_edit_series, csv_list)
         c_process.plot_data(data)
+        c_process.site_update()

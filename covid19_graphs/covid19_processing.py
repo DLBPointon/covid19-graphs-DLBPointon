@@ -280,14 +280,35 @@ class Covid19Processing:
             # Required in order to stop the column from summing
             # the total of each run through the loop
             data = data.drop('Rest of the World', axis=1)
-            dir_name = f'{self.out_dir}graphics/' \
+            self.dir_name = f'{self.out_dir}graphics/' \
                        f'{final_title[0]}_for_{column}.png'
-            fig.savefig(dir_name, transparent=False, dpi=300,
+            fig.savefig(self.dir_name, transparent=False, dpi=300,
                         bbox_inches="tight")
-            if os.path.exists(dir_name):
+            if os.path.exists(self.dir_name):
                 print(f'File saved at:'
-                      f'{dir_name}')
+                      f'{self.dir_name}')
             else:
                 print('Failed to save')
 
         plt.close()
+
+    def site_update(self):
+        """
+        A function to add functionality to allow website usage
+        """
+        if os.path.exists(self.dir_name):
+            print('Folder found')
+            if os.path.exists(f'{self.dir_name}dlbpointon.github.io'):
+                pass
+            else:
+                clone_it = os.popen(f'git clone https://github.com/DLBPointon/dlbpointon.github.io.git')
+            
+            move_it = os.popen(f'cp -a graphics/ dlbpointon.github.io')
+            
+            add_it = os.popen(f'git add graphics*')
+            
+            commit_it = os.popen(f'git commit -a -m \'Updating Graphics\'')
+            
+            push_it = os.popen('git push origin master')
+            
+# function to upload the graphs folder to the repo with the website.
