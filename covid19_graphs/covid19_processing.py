@@ -118,7 +118,8 @@ class Covid19Processing:
                   'Netherlands', 'San Marino', 'Belarus', 'Iceland',
                   'Lithuania', 'Ireland', 'Luxembourg', 'Monaco',
                   'Czech Republic', 'Vatican City', 'Slovakia',
-                  'Serbia', 'Malta']
+                  'Serbia', 'Malta', 'Republic of Ireland', 'Bulgaria',
+                  'Moldova']
 
         asia = ['Thailand', 'Japan',
                 'South Korea', 'Taiwan', 'Macau',
@@ -132,7 +133,7 @@ class Covid19Processing:
                 'Bahrain', 'Kuwait', 'Israel',
                 'Qatar', 'Palestine', 'Saudi Arabia',
                 'Jordan', 'Azerbaijan', 'Armenia',
-                'Bhutan']
+                'Bhutan', 'Maldives', 'Bangladesh']
 
         africa = ['Egypt', 'Algeria', 'Nigeria',
                   'Morocco', 'Senegal', 'Tunisia',
@@ -142,7 +143,7 @@ class Covid19Processing:
                     'Dominican Republic', 'Argentina',
                     'Chile', 'Saint Barthelemy', 'Peru',
                     'Costa Rica', 'Colombia', 'French Guiana',
-                    'Martinique']
+                    'Martinique', 'Paraguay']
 
         europe_csv = pd_edit_series[europe + ['UK']].copy()
         americas_csv = pd_edit_series[americas].copy()
