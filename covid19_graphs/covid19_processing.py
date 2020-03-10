@@ -118,8 +118,8 @@ class Covid19Processing:
                   'Netherlands', 'San Marino', 'Belarus', 'Iceland',
                   'Lithuania', 'Ireland', 'Luxembourg', 'Monaco',
                   'Czech Republic', 'Vatican City', 'Slovakia',
-                  'Serbia', 'Malta', 'Republic of Ireland', 'Bulgaria',
-                  'Moldova']
+                  'Serbia', 'Malta', 'Bulgaria',
+                  'Moldova', 'Albania', 'Cyprus']
 
         asia = ['Thailand', 'Japan',
                 'South Korea', 'Taiwan', 'Macau',
@@ -133,7 +133,8 @@ class Covid19Processing:
                 'Bahrain', 'Kuwait', 'Israel',
                 'Qatar', 'Palestine', 'Saudi Arabia',
                 'Jordan', 'Azerbaijan', 'Armenia',
-                'Bhutan', 'Maldives', 'Bangladesh']
+                'Bhutan', 'Maldives', 'Bangladesh',
+                'Brunei']
 
         africa = ['Egypt', 'Algeria', 'Nigeria',
                   'Morocco', 'Senegal', 'Tunisia',
@@ -143,7 +144,7 @@ class Covid19Processing:
                     'Dominican Republic', 'Argentina',
                     'Chile', 'Saint Barthelemy', 'Peru',
                     'Costa Rica', 'Colombia', 'French Guiana',
-                    'Martinique', 'Paraguay']
+                    'Martinique', 'Paraguay', 'St. Martin']
 
         europe_csv = pd_edit_series[europe + ['UK']].copy()
         americas_csv = pd_edit_series[americas].copy()
@@ -291,24 +292,3 @@ class Covid19Processing:
                 print('Failed to save')
 
         plt.close()
-
-    def site_update(self):
-        """
-        A function to add functionality to allow website usage
-        """
-        if os.path.exists(self.dir_name):
-            print('Folder found')
-            if os.path.exists(f'{self.dir_name}dlbpointon.github.io'):
-                pass
-            else:
-                clone_it = os.popen(f'git clone https://github.com/DLBPointon/dlbpointon.github.io.git')
-            
-            move_it = os.popen(f'cp -a graphics/ dlbpointon.github.io')
-            
-            add_it = os.popen(f'git add graphics*')
-            
-            commit_it = os.popen(f'git commit -a -m \'Updating Graphics\'')
-            
-            push_it = os.popen('git push origin master')
-            
-# function to upload the graphs folder to the repo with the website.
