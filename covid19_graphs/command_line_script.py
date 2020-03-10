@@ -68,14 +68,16 @@ def main():
         A function to add functionality to allow website usage
         """
         os.popen('cp -a graphics ../')
-
+        
         os.chdir('../')
-        repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
-        os.popen('git clone repo')
-        if os.path.exists('../dlbpointon.github.io'):
-            print('Website repo downloaded')
-        else:
-            print('Website unable to be downloaded')
+        os.getcwd()
+        
+       # repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
+        #os.popen('git clone repo')
+        #if os.path.exists('../dlbpointon.github.io'):
+        #    print('Website repo downloaded')
+        #else:
+        #    print('Website unable to be downloaded')
 
     for file in file_names:
         c_process = Covid19Processing(file, out_dir, full_url)
