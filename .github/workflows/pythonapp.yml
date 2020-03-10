@@ -21,7 +21,7 @@ jobs:
         pip install pycodestyle
         pip install pylint
         pip install argparse
-        pip install matplotlib.pyplot
+        pip install matplotlib
         pip install pandas
     - name: Lint with pycodestyle - will fail and stop on any issues!
       run: |
