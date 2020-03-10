@@ -67,13 +67,7 @@ def main():
         """
         A function to add functionality to allow website usage
         """
-        os.chdir('../')
-        print(os.getcwd())
-        os.popen('rm -rf graphics')
-
-        os.chdir('dlbpointon.github.io')
         os.popen('cp -a graphics ../')
-        print('Copy attempted')
 
         os.chdir('../')
         repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
