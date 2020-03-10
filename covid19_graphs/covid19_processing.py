@@ -282,7 +282,7 @@ class Covid19Processing:
             # the total of each run through the loop
             data = data.drop('Rest of the World', axis=1)
             self.dir_name = f'{self.out_dir}graphics/' \
-                       f'{final_title[0]}_for_{column}.png'
+                            f'{final_title[0]}_for_{column}.png'
             fig.savefig(self.dir_name, transparent=False, dpi=300,
                         bbox_inches="tight")
             if os.path.exists(self.dir_name):
