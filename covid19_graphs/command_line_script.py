@@ -9,6 +9,7 @@ import argparse
 import logging
 import requests
 import sys
+import os
 from covid19_graphs.covid19_processing import Covid19Processing
 
 
@@ -62,6 +63,25 @@ def main():
     folder = 'csse_covid_19_data/csse_covid_19_time_series/'
     full_url = f'{url}{folder}'
 
+    def site_update_helper():
+        """
+        A function to add functionality to allow website usage
+        """
+        ch_dir = os.chdir('../')
+        print(os.getcwd())
+        remove_previous = os.popen('rm -rf graphics')
+        
+        cha_dir = os.chdir('dlbpointon.github.io')
+        copy_out = os.popen('cp -a graphics ../')
+        print('Copy attempted')
+
+        change_dir = os.chdir('../')
+        clone_repo = os.popen('git clone https://github.com/DLBPointon/dlbpointon.github.io.git')
+        if os.path.exists('../dlbpointon.github.io'):
+            print('Website repo downloaded')
+        else:
+            print('Website unable to be downloaded')
+
     for file in file_names:
         c_process = Covid19Processing(file, out_dir, full_url)
         c_process.create_out_dir()
@@ -71,4 +91,5 @@ def main():
         csv_list, data = c_process.data(pd_edit_series)
         c_process.write_new_csv(pd_edit_series, csv_list)
         c_process.plot_data(data)
-        c_process.site_update()
+
+    site_update_helper()

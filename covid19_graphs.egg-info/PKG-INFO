@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: covid19-graphs
+Version: 0.0.1
+Summary: tool to download and process COVID-19 data
+Home-page: UNKNOWN
+Author: Oliver Smart
+Author-email: oliver.smart@anglia.ac.uk
+License: Apache 2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6
