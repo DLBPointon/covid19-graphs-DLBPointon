@@ -35,4 +35,4 @@ jobs:
         git clone 'https://github.com/DLBPointon/dlbpointon.github.io.git'
     - name: Run script
       run: |
-        ./dlbpointon.github.io/website_updater.py
+        python dlbpointon.github.io/website_updater.py
