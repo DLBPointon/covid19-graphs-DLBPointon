@@ -67,16 +67,17 @@ def main():
         """
         A function to add functionality to allow website usage
         """
-        ch_dir = os.chdir('../')
+        os.chdir('../')
         print(os.getcwd())
-        remove_previous = os.popen('rm -rf graphics')
-        
-        cha_dir = os.chdir('dlbpointon.github.io')
-        copy_out = os.popen('cp -a graphics ../')
+        os.popen('rm -rf graphics')
+
+        os.chdir('dlbpointon.github.io')
+        os.popen('cp -a graphics ../')
         print('Copy attempted')
 
-        change_dir = os.chdir('../')
-        clone_repo = os.popen('git clone https://github.com/DLBPointon/dlbpointon.github.io.git')
+        os.chdir('../')
+        repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
+        os.popen('git clone repo')
         if os.path.exists('../dlbpointon.github.io'):
             print('Website repo downloaded')
         else:
