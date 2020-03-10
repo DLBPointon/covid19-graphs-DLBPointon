@@ -1,0 +1,35 @@
+name: AUTOMATION
+
+on:  
+  schedule:
+          - cron: '59 10 * * *'
+  push:
+    branches: master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # install setup.py
+        pip install .
+        pip install pycodestyle
+        pip install pylint
+        pip install argparse
+        pip install matplotlib
+        pip install pandas
+    - name: Run Covid19_graphs
+      run: |
+        covid19_graphs ./
+    - name: Run Website script
+      run: |
+        ../dlbpointon.github.io/website_updater.py
