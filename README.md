@@ -2,6 +2,7 @@
 Check for PyLint and PyCodeStyle Compliance: ![Python application](https://github.com/ARU-Bioinf-ISE/covid19-graphs-DLBPointon/workflows/Python%20application/badge.svg?branch=master)
 
 Check for Automation to website: ![automated_script_runner](https://github.com/ARU-Bioinf-ISE/covid19-graphs-DLBPointon/workflows/automated_script_runner/badge.svg)
+The above badge shows the script passing technically but in actual fact the script contains a fatal error due to authentication.
 
 # A tool to download and plot Covid-19 disease outbreak data
 
