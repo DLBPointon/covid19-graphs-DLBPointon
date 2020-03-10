@@ -67,16 +67,17 @@ def main():
         """
         A function to add functionality to allow website usage
         """
+        print(os.getcwd())
         os.popen('cp -a graphics /home/runner/work')
         
-        os.chdir('../')
-        print(os.getcwd())
+        # os.chdir('../')
+        # print(os.getcwd())
         
-       # repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
-        #os.popen('git clone repo')
-        #if os.path.exists('../dlbpointon.github.io'):
+        # repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
+        # os.popen('git clone repo')
+        # if os.path.exists('../dlbpointon.github.io'):
         #    print('Website repo downloaded')
-        #else:
+        # else:
         #    print('Website unable to be downloaded')
 
     for file in file_names:
