@@ -70,7 +70,7 @@ def main():
         os.popen('cp -a graphics ../')
         
         os.chdir('../')
-        os.getcwd()
+        print(os.getcwd())
         
        # repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
         #os.popen('git clone repo')
