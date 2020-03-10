@@ -69,10 +69,10 @@ def main():
         """
         print(os.getcwd())
         os.popen('cp -a graphics /home/runner/work')
-        
+
         # os.chdir('../')
         # print(os.getcwd())
-        
+
         # repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
         # os.popen('git clone repo')
         # if os.path.exists('../dlbpointon.github.io'):
