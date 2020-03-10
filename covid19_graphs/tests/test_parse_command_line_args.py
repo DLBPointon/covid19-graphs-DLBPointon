@@ -1,5 +1,14 @@
 """ unit tests for parse_command_line_args"""
 import pytest
+import argparse
+import sys
+import logging
+import math
+import os
+import sys
+import requests
+import matplotlib.pyplot as plt
+import pandas as pd
 from covid19_graphs.command_line_script import parse_command_line_args
 
 
