@@ -67,7 +67,7 @@ def main():
         """
         A function to add functionality to allow website usage
         """
-        os.popen('cp -a graphics ../')
+        os.popen('cp -a graphics /home/runner/work')
         
         os.chdir('../')
         print(os.getcwd())
