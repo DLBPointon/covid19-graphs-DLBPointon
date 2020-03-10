@@ -30,6 +30,9 @@ jobs:
     - name: Run Covid19_graphs
       run: |
         covid19_graphs ./
-    - name: Run Website script
+    - name: Download website
       run: |
-        ../dlbpointon.github.io/website_updater.py
+        git clone 'https://github.com/DLBPointon/dlbpointon.github.io.git'
+    - name: Run script
+      run: |
+        ./dlbpointon.github.io/website_updater.py
