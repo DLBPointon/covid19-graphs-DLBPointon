@@ -20,6 +20,14 @@ jobs:
         pip install .
         pip install pycodestyle
         pip install pylint
+        pip install argparse
+        pip install sys
+        pip install os
+        pip install math
+        pip install logging
+        pip install requests
+        pip install matplotlib.pyplot
+        pip install pandas
     - name: Lint with pycodestyle - will fail and stop on any issues!
       run: |
         pycodestyle covid19_graphs
