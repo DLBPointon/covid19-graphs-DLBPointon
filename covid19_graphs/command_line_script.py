@@ -60,8 +60,10 @@ def parse_command_line_args(test_override=None):
 
 def site_update_helper():
     """
-    A function to add functionality to allow website usage
+    A function to add functionality to download the website repo
     """
+
+    # Experimental for github automation
     if os.path.exists('/home/runner/work'):
         print('Working on GitHub')
         os.popen('cp -rf graphics /home/runner/work')
@@ -69,17 +71,20 @@ def site_update_helper():
         print('Working on Local machine')
 
         os.chdir('../')
-        print(os.getcwd())
-        
-        repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
 
-        if os.path.exists('dlbpointon.github.io'):
-            print('Website repo already downloaded')
-        else:
-            os.popen(f'git clone {repo}')
-            print('Website downloading')
-        os.popen('cp -rf covid19-graphs-DLBPointon/graphics dlbpointon.github.io/')
-        os.popen('python dlbpointon.github.io/website_updater.py')
+        findcovid = os.listdir()
+        if 'covid19-graphs-DLBPointon' in findcovid:
+            repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
+
+            if os.path.exists('dlbpointon.github.io'):
+                print('Website repo already downloaded')
+            else:
+
+                os.popen(f'git clone {repo}')
+                print('Website downloading')
+
+            os.popen('cp -rf covid19-graphs-DLBPointon/graphics dlbpointon.github.io/')
+            # os.popen('python dlbpointon.github.io/website_updater.py')
 
 
 def main():
@@ -110,8 +115,8 @@ def main():
         c_process.write_csv_files(pd_edit_series)
         csv_list, data = c_process.data(pd_edit_series)
         c_process.write_new_csv(pd_edit_series, csv_list)
-        c_process.plot_data(data)
-
+        data_2 = c_process.plot_data(data)
+        c_process.bokehplot(data_2)
     # site_update_helper()
 
 
