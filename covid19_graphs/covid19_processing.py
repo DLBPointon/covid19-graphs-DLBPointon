@@ -18,7 +18,7 @@ class Covid19Processing:
         self.out_dir = out_dir
         self.full_url = full_url
         print(filename)
-        logging.debug('Covid19Processing __init__ to be written')
+        logging.debug(f'Covid19Processing working on {filename}')
 
     def create_out_dir(self):
         """creates a new output directory out_dir
@@ -54,13 +54,13 @@ class Covid19Processing:
         self.response = requests.get(f'{self.full_url}{self.filename}')
         status_code = self.response.status_code
         if status_code == 200:
-            print('Success response gave status code 200')
+            logging.debug('Success response gave status code 200')
             with open(f'{self.out_dir}/downloaded/{self.filename}',
                       'wb') as csv_written:
                 csv_written.write(self.response.content)
         else:
-            print(f'Error in requests download'
-                  f'status_code={status_code}')
+            logging.debug(f'Error in requests download'
+                          f'status_code={status_code}')
             sys.exit()
 
         return self.response
@@ -84,7 +84,6 @@ class Covid19Processing:
 
         pd_time_series = pd_time_series.drop('Province/State', axis=1)
         pd_edit_series = pd_time_series.set_index('Country/Region')
-        # pd_edit_series = pd_time_series
 
         pd_edit_series = pd_edit_series.T
 
@@ -108,7 +107,7 @@ class Covid19Processing:
         A function where the imported data will be further
         edited in a more extensive manner.
         """
-        europe = ['France', 'Spain', 'Italy', 'Belgium', 'Finland',
+        europe = ['UK', 'France', 'Spain', 'Belgium', 'Finland',
                   'Sweden', 'Germany', 'Croatia', 'Switzerland',
                   'Austria', 'Greece', 'Hungary', 'Slovenia',
                   'Gibraltar', 'Poland', 'Bosnia and Herzegovina',
@@ -117,44 +116,54 @@ class Covid19Processing:
                   'Portugal', 'Romania', 'Denmark', 'Estonia',
                   'Netherlands', 'San Marino', 'Belarus', 'Iceland',
                   'Lithuania', 'Ireland', 'Luxembourg', 'Monaco',
-                  'Czech Republic', 'Vatican City', 'Slovakia',
+                  'Czech Republic', 'Slovakia', 'Holy See', 
                   'Serbia', 'Malta', 'Bulgaria',
-                  'Moldova', 'Albania', 'Cyprus']
+                  'Albania', 'Cyprus', 'Channel Islands',
+                  'Republic of Moldova']
 
         asia = ['Thailand', 'Japan',
-                'South Korea', 'Taiwan', 'Macau',
-                'Hong Kong', 'Singapore', 'Vietnam',
+                'Singapore', 'Mongolia',
                 'Nepal', 'Malaysia', 'Sri Lanka',
                 'Philippines', 'India',
-                'Cambodia', 'Russia', 'Pakistan',
+                'Cambodia', 'Pakistan',
                 'Georgia', 'Indonesia',
-                'United Arab Emirates', 'Iran', 'Lebanon',
+                'United Arab Emirates', 'Lebanon',
                 'Iraq', 'Oman', 'Afghanistan',
                 'Bahrain', 'Kuwait', 'Israel',
-                'Qatar', 'Palestine', 'Saudi Arabia',
+                'Qatar', 'Saudi Arabia', 'Macao SAR',
+                'occupied Palestinian territory',
                 'Jordan', 'Azerbaijan', 'Armenia',
                 'Bhutan', 'Maldives', 'Bangladesh',
-                'Brunei']
+                'Brunei', 'Republic of Korea', 'Hong Kong SAR',
+                'Taipei and environs', 'Viet Nam',
+                'Russian Federation', 'Iran (Islamic Republic of)']
 
         africa = ['Egypt', 'Algeria', 'Nigeria',
                   'Morocco', 'Senegal', 'Tunisia',
-                  'South Africa', 'Togo', 'Cameroon']
+                  'South Africa', 'Togo', 'Cameroon',
+                  'Burkina Faso']
 
         americas = ['Brazil', 'Mexico', 'Ecuador',
                     'Dominican Republic', 'Argentina',
                     'Chile', 'Saint Barthelemy', 'Peru',
                     'Costa Rica', 'Colombia', 'French Guiana',
-                    'Martinique', 'Paraguay', 'St. Martin']
+                    'Martinique', 'Paraguay', 'Panama', 'Saint Martin',
+                    'Canada', 'US']
+
+        oceania = ['Australia', 'New Zealand']
 
         europe_csv = pd_edit_series[europe + ['UK']].copy()
         americas_csv = pd_edit_series[americas].copy()
         asia_csv = pd_edit_series[asia].copy()
         main_china_csv = pd_edit_series.loc[:, 'Mainland China'].copy()
         uk_csv = pd_edit_series.loc[:, 'UK'].copy()
+        italy_csv = pd_edit_series.loc[:, 'Italy'].copy()
         diamond_csv = pd_edit_series.loc[:, 'Others'].copy()
+        oceania_csv = pd_edit_series[oceania].copy()
         csv_list = {'europe': europe_csv, 'america': americas_csv,
                     'asia': asia_csv, 'main_china': main_china_csv,
-                    'UK': uk_csv, 'diamond': diamond_csv}
+                    'UK': uk_csv, 'diamond': diamond_csv,
+                    'italy': italy_csv, 'oceania': oceania_csv}
 
         pd_edit_series['Mainland_China_Total'] = \
             pd_edit_series.loc[:, 'Mainland China'].sum(axis=1)
@@ -186,11 +195,9 @@ class Covid19Processing:
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
 
+        # As Mainland china is being kept separate
         pd_edit_series = pd_edit_series.drop('Mainland China', axis=1)
-        pd_edit_series = pd_edit_series.drop('US', axis=1)
-        pd_edit_series = pd_edit_series.drop('Canada', axis=1)
-        pd_edit_series = pd_edit_series.drop('Australia', axis=1)
-        pd_edit_series = pd_edit_series.drop('New Zealand', axis=1)
+        pd_edit_series = pd_edit_series.drop('Others', axis=1)
 
         for place in asia:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
@@ -200,8 +207,8 @@ class Covid19Processing:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
         for place in africa:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
-        pd_edit_series = pd_edit_series.drop('UK', axis=1)
-        pd_edit_series = pd_edit_series.drop('Others', axis=1)
+        for place in oceania:
+            pd_edit_series = pd_edit_series.drop(place, axis=1)
 
         return csv_list, pd_edit_series
 
@@ -232,9 +239,9 @@ class Covid19Processing:
         A function to plot the graphs from the imported data
         """
         title = self.filename.split('-')
-        final_title = title[2].split('.')
-
-        data = data.drop('UK_Total', axis=1)
+        final_titles = title[2].split('.')
+        final_title = final_titles[0].lower()
+        
         data = data.drop('US_Total', axis=1)
         data = data.drop('Canada_Total', axis=1)
 
@@ -255,7 +262,7 @@ class Covid19Processing:
                 if number % every_nth != 0:
                     label.set_visible(False)
             axes.set(xlabel='Date', ylabel='Cases',
-                     title=f'Covid-19 {final_title[0]} cases for '
+                     title=f'Covid-19 {final_title} cases for '
                            f'{column} - data from John Hopkins CSSE')
             axes.grid()
             axes.legend()
@@ -282,13 +289,18 @@ class Covid19Processing:
             # the total of each run through the loop
             data = data.drop('Rest of the World', axis=1)
             self.dir_name = f'{self.out_dir}graphics/' \
-                            f'{final_title[0]}_for_{column}.png'
+                            f'{x_axis[-1]}-2020-{final_title}_for_{column}.png'
+            self.web_name = f'{self.out_dir}graphics/' \
+                            f'{final_title}_for_{column}.png'
             fig.savefig(self.dir_name, transparent=False, dpi=300,
                         bbox_inches="tight")
+            fig.savefig(self.web_name, transparent=False, dpi=300,
+                        bbox_inches="tight")
+
             if os.path.exists(self.dir_name):
-                print(f'File saved at:'
-                      f'{self.dir_name}')
+                print(f'File saved at: {self.dir_name}')
+                print(f'File saved at: {self.web_name}')
             else:
                 print('Failed to save')
-
+            print(os.getcwd())
         plt.close()
