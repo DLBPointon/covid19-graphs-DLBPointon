@@ -6,6 +6,9 @@ import sys
 import requests
 import matplotlib.pyplot as plt
 import pandas as pd
+from bokeh.plotting import figure
+from bokeh.io import show, output_notebook
+import pandas_bokeh
 
 
 class Covid19Processing:
@@ -14,6 +17,7 @@ class Covid19Processing:
     """
 
     def __init__(self, filename, out_dir, full_url):
+
         self.filename = filename
         self.out_dir = out_dir
         self.full_url = full_url
@@ -50,7 +54,6 @@ class Covid19Processing:
         into instance variable storage
         """
         logging.debug('download_from_github called')
-
         self.response = requests.get(f'{self.full_url}{self.filename}')
         status_code = self.response.status_code
         if status_code == 200:
@@ -102,24 +105,24 @@ class Covid19Processing:
                               f'edited_{self.filename}',
                               encoding='utf-8')
 
-    def data(self, pd_edit_series):
+    @staticmethod
+    def data(pd_edit_series):
         """
         A function where the imported data will be further
         edited in a more extensive manner.
         """
-        europe = ['UK', 'France', 'Spain', 'Belgium', 'Finland',
+        europe = ['United Kingdom', 'France', 'Spain', 'Belgium', 'Finland',
                   'Sweden', 'Germany', 'Croatia', 'Switzerland',
                   'Austria', 'Greece', 'Hungary', 'Slovenia',
-                  'Gibraltar', 'Poland', 'Bosnia and Herzegovina',
-                  'Faroe Islands', 'Liechtenstein', 'Ukraine',
+                  'Poland', 'Bosnia and Herzegovina',
+                  'Denmark', 'Liechtenstein', 'Ukraine',
                   'North Macedonia', 'Latvia', 'Andorra', 'Norway',
-                  'Portugal', 'Romania', 'Denmark', 'Estonia',
+                  'Portugal', 'Romania', 'Estonia',
                   'Netherlands', 'San Marino', 'Belarus', 'Iceland',
                   'Lithuania', 'Ireland', 'Luxembourg', 'Monaco',
-                  'Czech Republic', 'Slovakia', 'Holy See', 
+                  'Czechia', 'Slovakia', 'Holy See',
                   'Serbia', 'Malta', 'Bulgaria',
-                  'Albania', 'Cyprus', 'Channel Islands',
-                  'Republic of Moldova']
+                  'Albania', 'Cyprus', 'Moldova']
 
         asia = ['Thailand', 'Japan',
                 'Singapore', 'Mongolia',
@@ -130,35 +133,34 @@ class Covid19Processing:
                 'United Arab Emirates', 'Lebanon',
                 'Iraq', 'Oman', 'Afghanistan',
                 'Bahrain', 'Kuwait', 'Israel',
-                'Qatar', 'Saudi Arabia', 'Macao SAR',
-                'occupied Palestinian territory',
+                'Qatar', 'Saudi Arabia',
                 'Jordan', 'Azerbaijan', 'Armenia',
                 'Bhutan', 'Maldives', 'Bangladesh',
-                'Brunei', 'Republic of Korea', 'Hong Kong SAR',
-                'Taipei and environs', 'Viet Nam',
-                'Russian Federation', 'Iran (Islamic Republic of)']
+                'Brunei', 'Korea, South',
+                'Vietnam', 'Russia', 'Iran', 'Turkey',
+                'Reunion', 'Taiwan*']
 
         africa = ['Egypt', 'Algeria', 'Nigeria',
                   'Morocco', 'Senegal', 'Tunisia',
                   'South Africa', 'Togo', 'Cameroon',
-                  'Burkina Faso']
+                  'Burkina Faso', 'Cote d\'Ivoire', 'Congo (Kinshasa)']
 
         americas = ['Brazil', 'Mexico', 'Ecuador',
                     'Dominican Republic', 'Argentina',
-                    'Chile', 'Saint Barthelemy', 'Peru',
+                    'Chile', 'Peru',
                     'Costa Rica', 'Colombia', 'French Guiana',
-                    'Martinique', 'Paraguay', 'Panama', 'Saint Martin',
-                    'Canada', 'US']
+                    'Martinique', 'Paraguay', 'Panama',
+                    'Canada', 'US', 'Jamaica', 'Honduras', 'Bolivia']
 
         oceania = ['Australia', 'New Zealand']
 
-        europe_csv = pd_edit_series[europe + ['UK']].copy()
+        europe_csv = pd_edit_series[europe + ['United Kingdom']].copy()
         americas_csv = pd_edit_series[americas].copy()
         asia_csv = pd_edit_series[asia].copy()
-        main_china_csv = pd_edit_series.loc[:, 'Mainland China'].copy()
-        uk_csv = pd_edit_series.loc[:, 'UK'].copy()
+        main_china_csv = pd_edit_series.loc[:, 'China'].copy()
+        uk_csv = pd_edit_series.loc[:, 'United Kingdom'].copy()
         italy_csv = pd_edit_series.loc[:, 'Italy'].copy()
-        diamond_csv = pd_edit_series.loc[:, 'Others'].copy()
+        diamond_csv = pd_edit_series.loc[:, 'Cruise Ship'].copy()
         oceania_csv = pd_edit_series[oceania].copy()
         csv_list = {'europe': europe_csv, 'america': americas_csv,
                     'asia': asia_csv, 'main_china': main_china_csv,
@@ -166,7 +168,7 @@ class Covid19Processing:
                     'italy': italy_csv, 'oceania': oceania_csv}
 
         pd_edit_series['Mainland_China_Total'] = \
-            pd_edit_series.loc[:, 'Mainland China'].sum(axis=1)
+            pd_edit_series.loc[:, 'China'].sum(axis=1)
 
         pd_edit_series['US_Total'] = \
             pd_edit_series.loc[:, 'US'].sum(axis=1)
@@ -178,13 +180,13 @@ class Covid19Processing:
             pd_edit_series[['Australia', 'New Zealand']].sum(axis=1)
 
         pd_edit_series['Europe_Total'] = \
-            pd_edit_series[europe + ['UK']].sum(axis=1)
+            pd_edit_series[europe + ['United Kingdom'] + ['Italy']].sum(axis=1)
 
         pd_edit_series['Diamond_Princess'] = \
-            pd_edit_series[['Others']]
+            pd_edit_series[['Cruise Ship']]
 
         pd_edit_series['UK_Total'] = \
-            pd_edit_series[['UK']]
+            pd_edit_series[['United Kingdom']].sum(axis=1)
 
         pd_edit_series['Asian_Total'] = \
             pd_edit_series[asia].sum(axis=1)
@@ -195,9 +197,9 @@ class Covid19Processing:
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
 
-        # As Mainland china is being kept separate
-        pd_edit_series = pd_edit_series.drop('Mainland China', axis=1)
-        pd_edit_series = pd_edit_series.drop('Others', axis=1)
+        # As China is being kept separate
+        pd_edit_series = pd_edit_series.drop('China', axis=1)
+        pd_edit_series = pd_edit_series.drop('Cruise Ship', axis=1)
 
         for place in asia:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
@@ -226,7 +228,8 @@ class Covid19Processing:
         for country, csv in csv_list.items():
             csv.to_csv(f'{self.out_dir}edited_csv/edited_{country}')
 
-    def round_up(self, number, decimals=0):
+    @staticmethod
+    def round_up(number, decimals=0):
         """
         A function to aid in the production of more
         flexible y axis integers
@@ -236,11 +239,12 @@ class Covid19Processing:
 
     def plot_data(self, data):
         """
-        A function to plot the graphs from the imported data
+        A function to plot the graphs with an increased 'ceiling' 
         """
         title = self.filename.split('-')
         final_titles = title[2].split('.')
-        final_title = final_titles[0].lower()
+        self.final_title_sub = final_titles[0].lower()
+        print(self.final_title_sub)
         
         data = data.drop('US_Total', axis=1)
         data = data.drop('Canada_Total', axis=1)
@@ -262,7 +266,7 @@ class Covid19Processing:
                 if number % every_nth != 0:
                     label.set_visible(False)
             axes.set(xlabel='Date', ylabel='Cases',
-                     title=f'Covid-19 {final_title} cases for '
+                     title=f'Covid-19 {self.final_title_sub} cases for '
                            f'{column} - data from John Hopkins CSSE')
             axes.grid()
             axes.legend()
@@ -274,10 +278,10 @@ class Covid19Processing:
             rounded_max += 2000
             axes.set_ylim([0, rounded_max])
 
+            # Adds Labels to annotate the last data point for each plot
             y_axis1 = data[column][-1]
             y_axis2 = data['Rest of the World'][-1]
 
-            # Adds Labels to annotate the last data point for each plot
             plt.annotate(y_axis1, (x_axis[-1], y_axis1+500),
                          bbox=dict(facecolor='blue', alpha=0.5),
                          fontsize=12)
@@ -287,20 +291,48 @@ class Covid19Processing:
 
             # Required in order to stop the column from summing
             # the total of each run through the loop
+            # otherwise this leads to Rest of World values in the millions
             data = data.drop('Rest of the World', axis=1)
+
             self.dir_name = f'{self.out_dir}graphics/' \
-                            f'{x_axis[-1]}-2020-{final_title}_for_{column}.png'
+                            f'{x_axis[-1]}-2020-{self.final_title_sub}_for_{column}.png'
             self.web_name = f'{self.out_dir}graphics/' \
-                            f'{final_title}_for_{column}.png'
+                            f'{self.final_title_sub}_for_{column}.png'
             fig.savefig(self.dir_name, transparent=False, dpi=300,
                         bbox_inches="tight")
             fig.savefig(self.web_name, transparent=False, dpi=300,
                         bbox_inches="tight")
 
             if os.path.exists(self.dir_name):
-                print(f'File saved at: {self.dir_name}')
-                print(f'File saved at: {self.web_name}')
+                logging.debug(f'File saved at: {self.dir_name}')
+                logging.debug(f'File saved at: {self.web_name}')
+                print(f'Files saved at:\n'
+                      f'{self.dir_name}\n'
+                      f'{self.web_name}')
             else:
-                print('Failed to save')
-            print(os.getcwd())
+                logging.debug('Failed to save')
+            logging.debug(os.getcwd())
         plt.close()
+        return data
+
+    def bokehplot(self, data):
+        """
+        A function to produce advanced interactive plots with the use of bokeh
+        """
+        subset = data.loc[:, data.columns]
+        data['Total_Cases'] = subset.sum(axis=1)
+
+        plotted = data.plot_bokeh(title=f'Global Data for Covid-19 {self.final_title_sub}',
+                                  figsize=(1000, 750),
+                                  legend='top_left',
+                                  xlabel='Dates - Formatted (Day/Month)',
+                                  ylabel='Number of Cases',
+                                  disable_scientific_axes='y',
+                                  return_html=True,
+                                  show_figure=False)
+
+        save_to = f'{self.out_dir}graphics/interactive_plot_for_{self.final_title_sub}.html'
+        logging.debug(f'Interactive plot saved to:\n{save_to}')
+
+        with open(save_to, 'w') as int_plot:
+            int_plot.write(plotted)
