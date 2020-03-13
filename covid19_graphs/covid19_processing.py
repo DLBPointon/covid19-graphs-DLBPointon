@@ -77,7 +77,8 @@ class Covid19Processing:
         pd_time_series = pd_time_series.drop('Lat', axis=1)
         pd_time_series = pd_time_series.drop('Long', axis=1)
         no_of_dates = len(pd_time_series.columns) - 2
-        dateindex = pd.date_range(start='1-22-2020', periods=no_of_dates,
+        dateindex = pd.date_range(start='1-22-2020',
+                                  periods=no_of_dates,
                                   freq='D').strftime('%d-%m')
 
         new_cols = ['Province/State', 'Country/Region']
@@ -111,10 +112,10 @@ class Covid19Processing:
         A function where the imported data will be further
         edited in a more extensive manner.
         """
-        europe = ['United Kingdom', 'France', 'Spain', 'Belgium', 'Finland',
-                  'Sweden', 'Germany', 'Croatia', 'Switzerland',
-                  'Austria', 'Greece', 'Hungary', 'Slovenia',
-                  'Poland', 'Bosnia and Herzegovina',
+        europe = ['United Kingdom', 'France', 'Spain', 'Belgium',
+                  'Finland', 'Sweden', 'Germany', 'Croatia',
+                  'Switzerland', 'Austria', 'Greece', 'Hungary',
+                  'Slovenia', 'Poland', 'Bosnia and Herzegovina',
                   'Denmark', 'Liechtenstein', 'Ukraine',
                   'North Macedonia', 'Latvia', 'Andorra', 'Norway',
                   'Portugal', 'Romania', 'Estonia',
@@ -180,7 +181,8 @@ class Covid19Processing:
             pd_edit_series[['Australia', 'New Zealand']].sum(axis=1)
 
         pd_edit_series['Europe_Total'] = \
-            pd_edit_series[europe + ['United Kingdom'] + ['Italy']].sum(axis=1)
+            pd_edit_series[europe + ['United Kingdom'] +
+                           ['Italy']].sum(axis=1)
 
         pd_edit_series['Diamond_Princess'] = \
             pd_edit_series[['Cruise Ship']]
@@ -291,11 +293,13 @@ class Covid19Processing:
 
             # Required in order to stop the column from summing
             # the total of each run through the loop
-            # otherwise this leads to Rest of World values in the millions
+            # otherwise this leads to Rest of World values in the
+            # millions
             data = data.drop('Rest of the World', axis=1)
 
             self.dir_name = f'{self.out_dir}graphics/' \
-                            f'{x_axis[-1]}-2020-{self.final_title_sub}_for_{column}.png'
+                            f'{x_axis[-1]}-2020-' \
+                            f'{self.final_title_sub}_for_{column}.png'
             self.web_name = f'{self.out_dir}graphics/' \
                             f'{self.final_title_sub}_for_{column}.png'
             fig.savefig(self.dir_name, transparent=False, dpi=300,
@@ -317,21 +321,25 @@ class Covid19Processing:
 
     def bokehplot(self, data):
         """
-        A function to produce advanced interactive plots with the use of bokeh
+        A function to produce advanced interactive plots with the use
+        of bokeh
         """
         subset = data.loc[:, data.columns]
         data['Total_Cases'] = subset.sum(axis=1)
 
-        plotted = data.plot_bokeh(title=f'Global Data for Covid-19 {self.final_title_sub}',
+        plotted = data.plot_bokeh(title=f'Global Data for Covid-19 '
+                                        f'{self.final_title_sub}',
                                   figsize=(1000, 750),
                                   legend='top_left',
-                                  xlabel='Dates - Formatted (Day/Month)',
+                                  xlabel='Dates - Formatted '
+                                         '(Day/Month)',
                                   ylabel='Number of Cases',
                                   disable_scientific_axes='y',
                                   return_html=True,
                                   show_figure=False)
 
-        save_to = f'{self.out_dir}graphics/interactive_plot_for_{self.final_title_sub}.html'
+        save_to = f'{self.out_dir}docs/graphics/interactive_plot_for_' \
+                  f'{self.final_title_sub}.html'
         logging.debug(f'Interactive plot saved to:\n{save_to}')
 
         with open(save_to, 'w') as int_plot:
