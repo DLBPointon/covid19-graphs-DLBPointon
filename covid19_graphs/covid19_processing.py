@@ -136,10 +136,10 @@ class Covid19Processing:
 
             'asia': ['Thailand', 'Japan', 'Singapore', 'Mongolia',
                      'Nepal', 'Malaysia', 'Sri Lanka', 'Philippines',
-                     'India', 'Cambodia', 'Pakistan', 'Georgia',
+                     'India', 'Cambodia', 'Pakistan', 
                      'Indonesia', 'United Arab Emirates', 'Lebanon',
                      'Iraq', 'Oman', 'Afghanistan', 'Bahrain',
-                     'Kuwait', 'Israel', 'Qatar', 'Saudi Arabia',
+                     'Kuwait', 'Qatar', 'Saudi Arabia',
                      'Jordan', 'Azerbaijan', 'Bhutan', 'Maldives',
                      'Bangladesh', 'Brunei', 'Korea, South', 'Vietnam',
                      'Russia', 'Iran', 'Reunion', 'Taiwan*', 'Yemen',
@@ -156,9 +156,9 @@ class Covid19Processing:
                      'Singapore', 'Syrian Arab Republic',
                      'Tajikistan', 'Turkmenistan', 'Timor-Leste',
                      'United States Minor Outlying Islands',
-                     'Uzbekistan', 'Tunisia', 'Somalia',
-                     'Palestinian Territory', 'Mauritania', 'Morocco',
-                     'Comoros', 'Algeria', 'Djibouti', 'Bahrain'],
+                     'Uzbekistan', 'Somalia',
+                     'Palestinian Territory', 'Mauritania',
+                     'Comoros', 'Djibouti', 'Bahrain'],
 
             'africa': ['Egypt', 'Algeria', 'Nigeria',
                        'Morocco', 'Senegal', 'Tunisia',
@@ -215,6 +215,8 @@ class Covid19Processing:
                      italy, china, ship]
         for_total = [europe, asia, oceania, americas, africa, china,
                      others, ship]
+        
+        print(pd_edit_series['Cruise Ship'])
 
         for region, countries in country_dict.items():
             for column in pd_edit_series:
@@ -237,22 +239,23 @@ class Covid19Processing:
                     elif region == 'oceania':
                         if column not in oceania:
                             oceania.append(column)
-                    elif column == 'Diamond Princess' or 'Cruise Ship':
-                        if column not in ship:
-                            ship.append(column)
-                            print(ship)
+
                 else:
                     if column == 'Italy':
                         if column not in italy:
                             italy.append(column)
 
-                    elif column == 'China' or 'Mainland China':
+                    elif column == 'China':
                         if column not in china:
                             china.append(column)
+                    
+                    elif column == 'Cruise Ship':
+                        if column not in ship:
+                            ship.append(column)
 
                     else:
                         others.append(column)
-        sys.exit()
+
         # -----------------------------------------------------------
         # Segment of code it to catch any straggler countries not
         # accounted for in the country_dict
@@ -266,8 +269,8 @@ class Covid19Processing:
         others_final = [item for item in others
                         if item not in remove_list]
         
-        if others_final > 0:
-            print(others_final)
+        if len(others_final) > 0:
+            logging.debug(others_final)
             print('Exitting due to unaccounted countries')
             sys.exit()
         # -----------------------------------------------------------
@@ -291,7 +294,7 @@ class Covid19Processing:
         pd_edit_series['Mainland_China_Total'] = \
             pd_edit_series[china].sum(axis=1)
 
-        pd_edit_series['Oceania Total'] = \
+        pd_edit_series['Oceania_Total'] = \
             pd_edit_series[oceania].sum(axis=1)
 
         pd_edit_series['Europe_Total'] = \
@@ -326,8 +329,7 @@ class Covid19Processing:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
         for place in oceania:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
-            print(ship)
-        print(pd_edit_series)
+
         return csv_list, pd_edit_series
 
     def write_new_csv(self, pd_edit_series, csv_list):
