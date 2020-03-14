@@ -6,10 +6,7 @@ import sys
 import requests
 import matplotlib.pyplot as plt
 import pandas as pd
-from bokeh.plotting import figure
-from bokeh.io import show, output_notebook
 import pandas_bokeh
-import copy
 
 
 class Covid19Processing:
@@ -136,7 +133,7 @@ class Covid19Processing:
 
             'asia': ['Thailand', 'Japan', 'Singapore', 'Mongolia',
                      'Nepal', 'Malaysia', 'Sri Lanka', 'Philippines',
-                     'India', 'Cambodia', 'Pakistan', 
+                     'India', 'Cambodia', 'Pakistan',
                      'Indonesia', 'United Arab Emirates', 'Lebanon',
                      'Iraq', 'Oman', 'Afghanistan', 'Bahrain',
                      'Kuwait', 'Qatar', 'Saudi Arabia',
@@ -206,16 +203,16 @@ class Covid19Processing:
         oceania = []
         americas = []
         africa = []
-        uk = []
+        uk_list = []
         italy = []
         china = []
         others = []
         ship = []
-        all_lists = [europe, asia, oceania, americas, africa, uk,
-                     italy, china, ship]
+        all_lists = [europe, asia, oceania, americas, africa, uk_list,
+                     italy, china, ship, others]
         for_total = [europe, asia, oceania, americas, africa, china,
                      others, ship]
-        
+
         print(pd_edit_series['Cruise Ship'])
 
         for region, countries in country_dict.items():
@@ -225,8 +222,8 @@ class Covid19Processing:
                         if column not in europe:
                             europe.append(column)
                             if column == 'United Kingdom' or 'UK':
-                                if column not in uk:
-                                    uk.append(column)
+                                if column not in uk_list:
+                                    uk_list.append(column)
                     elif region == 'asia':
                         if column not in asia:
                             asia.append(column)
@@ -248,7 +245,7 @@ class Covid19Processing:
                     elif column == 'China':
                         if column not in china:
                             china.append(column)
-                    
+
                     elif column == 'Cruise Ship':
                         if column not in ship:
                             ship.append(column)
@@ -268,11 +265,17 @@ class Covid19Processing:
 
         others_final = [item for item in others
                         if item not in remove_list]
-        
+
         if len(others_final) > 0:
             logging.debug(others_final)
-            print('Exitting due to unaccounted countries')
+            print('Exiting due to unaccounted countries')
             sys.exit()
+
+        total_count_list = []
+        for list in for_total:
+            for country in list:
+                if country not in total_count_list:
+                    total_count_list.append(country)
         # -----------------------------------------------------------
 
         diamond_csv = pd_edit_series[ship].copy()
@@ -281,7 +284,7 @@ class Covid19Processing:
         americas_csv = pd_edit_series[americas].copy()
         asia_csv = pd_edit_series[asia].copy()
         africa_csv = pd_edit_series[africa].copy()
-        uk_csv = pd_edit_series[uk].copy()
+        uk_csv = pd_edit_series[uk_list].copy()
         italy_csv = pd_edit_series[italy].copy()
         oceania_csv = pd_edit_series[oceania].copy()
 
@@ -304,7 +307,7 @@ class Covid19Processing:
             pd_edit_series[ship]
 
         pd_edit_series['UK_Total'] = \
-            pd_edit_series[uk].sum(axis=1)
+            pd_edit_series[uk_list].sum(axis=1)
 
         pd_edit_series['Asian_Total'] = \
             pd_edit_series[asia].sum(axis=1)
@@ -314,6 +317,11 @@ class Covid19Processing:
 
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
+
+        pd_edit_series['Global_Total'] = \
+            pd_edit_series[total_count_list].sum(axis=1)
+
+        print(pd_edit_series['Global_Total'])
 
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
@@ -357,7 +365,7 @@ class Covid19Processing:
 
     def plot_data(self, data):
         """
-        A function to plot the graphs with an increased 'ceiling' 
+        A function to plot the graphs with an increased 'ceiling'
         """
         title = self.filename.split('-')
         final_titles = title[2].split('.')
@@ -453,7 +461,7 @@ class Covid19Processing:
 
         save_to = f'{self.out_dir}graphics/interactive_plot_for_' \
                   f'{self.final_title_sub}.html'
-        logging.debug(f'Interactive plot saved to:\n{save_to}')
+        print(f'Interactive plot saved to:\n{save_to}')
 
         with open(save_to, 'w') as int_plot:
             int_plot.write(plotted)
