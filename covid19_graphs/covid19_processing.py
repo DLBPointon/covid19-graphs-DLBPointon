@@ -376,7 +376,7 @@ class Covid19Processing:
         print(self.final_title_sub)
 
         for column in data.columns:
-            subset = data.loc[:, ~data.columns.isin([column])]
+            subset = data.loc[:, data.columns != str(column)]
 
             data['Rest of the World'] = subset.sum(axis=1)
             x_axis = data.index.values
