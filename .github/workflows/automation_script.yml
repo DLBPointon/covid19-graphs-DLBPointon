@@ -30,9 +30,17 @@ jobs:
     - name: Run Covid19_graphs
       run: |
         covid19_graphs ./
-    - name: Download website
+    - name: Commiter
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        COMMIT_MSG: |
+          'Updates to Graphics'
+          skip-checks: true
       run: |
-        git clone 'https://github.com/DLBPointon/dlbpointon.github.io.git'
-    - name: Run script
-      run: |
-        python dlbpointon.github.io/website_updater.py
+        git config user.email 'damonlbp@hotmail.co.uk'
+        git config user.name 'DLBPointon'
+        git remote set-url <TOKEN> https://x-acess-token:${GITHUB_TOKEN}@github.com/dlbpointon.github.io.git
+        git checkout master
+        git add *
+        git commit -a -m '${COMMIT_MSG}
+        git push origin master

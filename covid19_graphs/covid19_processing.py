@@ -75,7 +75,8 @@ class Covid19Processing:
         pd_time_series = pd_time_series.drop('Lat', axis=1)
         pd_time_series = pd_time_series.drop('Long', axis=1)
         no_of_dates = len(pd_time_series.columns) - 2
-        dateindex = pd.date_range(start='1-22-2020', periods=no_of_dates,
+        dateindex = pd.date_range(start='1-22-2020',
+                                  periods=no_of_dates,
                                   freq='D').strftime('%d-%m')
 
         new_cols = ['Province/State', 'Country/Region']
@@ -109,6 +110,7 @@ class Covid19Processing:
         A function where the imported data will be further
         edited in a more extensive manner.
         """
+
         country_dict = {
             'europe': ['United Kingdom', 'France', 'Spain', 'Belgium',
                        'Finland', 'Sweden', 'Germany', 'Croatia',
@@ -452,8 +454,10 @@ class Covid19Processing:
                                         f'{self.final_title_sub}',
                                   figsize=(1000, 750),
                                   legend='top_left',
+
                                   xlabel='Dates - '
                                          'Formatted (Day/Month)',
+
                                   ylabel='Number of Cases',
                                   disable_scientific_axes='y',
                                   return_html=True,
