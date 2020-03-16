@@ -323,8 +323,8 @@ class Covid19Processing:
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
 
-        pd_edit_series['Global_Total'] = \
-            pd_edit_series[total_count_list].sum(axis=1)
+        # pd_edit_series['Global_Total'] = \
+          #  pd_edit_series[total_count_list].sum(axis=1)
 
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
@@ -376,7 +376,7 @@ class Covid19Processing:
         print(self.final_title_sub)
 
         for column in data.columns:
-            subset = data.loc[:, data.columns != str(column)]
+            subset = data.loc[:, ~data.columns.isin([column])]
 
             data['Rest of the World'] = subset.sum(axis=1)
             x_axis = data.index.values
