@@ -131,7 +131,7 @@ class Covid19Processing:
                        'Svalbard and Jan Mayen', 'Slovakia',
                        'Turkey', 'Serbia', 'Montenegro',
                        'Aland Islands', 'Guernsey',
-                       'Island of Man', 'Jersey'],
+                       'Island of Man', 'Jersey', 'Kosovo'],
 
             'asia': ['Thailand', 'Japan', 'Singapore', 'Mongolia',
                      'Nepal', 'Malaysia', 'Sri Lanka', 'Philippines',
@@ -156,14 +156,18 @@ class Covid19Processing:
                      'Tajikistan', 'Turkmenistan', 'Timor-Leste',
                      'United States Minor Outlying Islands',
                      'Uzbekistan', 'Somalia',
-                     'Palestinian Territory', 'Mauritania',
+                     'occupied Palestinian territory', 'Mauritania',
                      'Comoros', 'Djibouti', 'Bahrain'],
 
             'africa': ['Egypt', 'Algeria', 'Nigeria',
                        'Morocco', 'Senegal', 'Tunisia',
                        'South Africa', 'Togo', 'Cameroon',
                        'Burkina Faso', 'Cote d\'Ivoire',
-                       'Congo (Kinshasa)'],
+                       'Congo (Kinshasa)', 'Congo (Brazzaville)',
+                       'Central African Republic', 'Eswatini',
+                       'Eswatini', 'Ethiopia', 'Gabon', 'Ghana',
+                       'Guinea', 'Equatorial Guinea', 'Kenya',
+                       'Namibia', 'Rwanda', 'Sudan', 'Seychelles'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
@@ -188,7 +192,8 @@ class Covid19Processing:
                          'Venezuela', 'Virgin Islands (British)',
                          'Virgin Islands (US)', 'Saint Martin',
                          'Saint Berthelemy', 'Bermuda',
-                         'Saint Pierre and Miquelon', 'Cuba', 'Guyana'],
+                         'Saint Pierre and Miquelon', 'Cuba', 'Guyana',
+                         'Curacao'],
 
             'oceania': ['Australia', 'New Zealand', 'New Caledonia',
                         'Norfolk Island', 'Nauru', 'Niue',
@@ -214,8 +219,6 @@ class Covid19Processing:
                      italy, china, ship, others]
         for_total = [europe, asia, oceania, americas, africa, china,
                      others, ship]
-
-        print(pd_edit_series['Cruise Ship'])
 
         for region, countries in country_dict.items():
             for column in pd_edit_series:
@@ -322,8 +325,6 @@ class Covid19Processing:
 
         pd_edit_series['Global_Total'] = \
             pd_edit_series[total_count_list].sum(axis=1)
-
-        print(pd_edit_series['Global_Total'])
 
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
