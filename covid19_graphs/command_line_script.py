@@ -4,20 +4,29 @@
 ------------------------------------------------------------------------------
 ------------------------------- By S.I.D 1836811 -----------------------------
 ------------------------------------------------------------------------------
+
 This script is designed to be a 'one argument and do everything' kind of
 script.
-
+------------------------------------------------------------------------------
 Method:
 Simply calling the package and clarifying the output directory should allow
 for the downloading of data from the John Hopkins repo.
 
 The subsequent parsing of said data.
 
-The downloading of the website repo.
+This data is graphed by the modules matplotlib and pandas-bokeh (a back-end
+plug in for bokeh.io.
 
-Updating the website repo with the graphics produced from the covid package.
+This data (downloaded, edited and graphed) are then saved to their
+representative folders. The graphics folder will be hosted in the ./docs
+where a github pages is built upon commit to the repo.
+------------------------------------------------------------------------------
+The planned automation for this script will enable it to be run via a github
+action workflow and be presented on the github page found at the
+following link:
+https://aru-bioinf-ise.github.io/covid19-graphs-DLBPointon/
+------------------------------------------------------------------------------
 
-Re-uploading the 
 
 """
 import argparse
@@ -83,7 +92,9 @@ def site_update_helper():
                 os.popen(f'git clone {repo}')
                 print('Website downloading')
 
-            os.popen('cp -rf covid19-graphs-DLBPointon/graphics dlbpointon.github.io/')
+            os.popen('cp -rf '
+                     'covid19-graphs-DLBPointon/graphics '
+                     'dlbpointon.github.io/')
             # os.popen('python dlbpointon.github.io/website_updater.py')
 
 

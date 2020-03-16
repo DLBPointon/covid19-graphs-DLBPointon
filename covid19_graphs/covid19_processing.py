@@ -6,8 +6,6 @@ import sys
 import requests
 import matplotlib.pyplot as plt
 import pandas as pd
-from bokeh.plotting import figure
-from bokeh.io import show, output_notebook
 import pandas_bokeh
 
 
@@ -112,83 +110,206 @@ class Covid19Processing:
         A function where the imported data will be further
         edited in a more extensive manner.
         """
-        europe = ['United Kingdom', 'France', 'Spain', 'Belgium',
-                  'Finland', 'Sweden', 'Germany', 'Croatia',
-                  'Switzerland', 'Austria', 'Greece', 'Hungary',
-                  'Slovenia', 'Poland', 'Bosnia and Herzegovina',
-                  'Denmark', 'Liechtenstein', 'Ukraine',
-                  'North Macedonia', 'Latvia', 'Andorra', 'Norway',
-                  'Portugal', 'Romania', 'Estonia',
-                  'Netherlands', 'San Marino', 'Belarus', 'Iceland',
-                  'Lithuania', 'Ireland', 'Luxembourg', 'Monaco',
-                  'Czechia', 'Slovakia', 'Holy See',
-                  'Serbia', 'Malta', 'Bulgaria',
-                  'Albania', 'Cyprus', 'Moldova']
 
-        asia = ['Thailand', 'Japan',
-                'Singapore', 'Mongolia',
-                'Nepal', 'Malaysia', 'Sri Lanka',
-                'Philippines', 'India',
-                'Cambodia', 'Pakistan',
-                'Georgia', 'Indonesia',
-                'United Arab Emirates', 'Lebanon',
-                'Iraq', 'Oman', 'Afghanistan',
-                'Bahrain', 'Kuwait', 'Israel',
-                'Qatar', 'Saudi Arabia',
-                'Jordan', 'Azerbaijan', 'Armenia',
-                'Bhutan', 'Maldives', 'Bangladesh',
-                'Brunei', 'Korea, South',
-                'Vietnam', 'Russia', 'Iran', 'Turkey',
-                'Reunion', 'Taiwan*']
+        country_dict = {
+            'europe': ['United Kingdom', 'France', 'Spain', 'Belgium',
+                       'Finland', 'Sweden', 'Germany', 'Croatia',
+                       'Switzerland', 'Austria', 'Greece', 'Hungary',
+                       'Slovenia', 'Poland', 'Bosnia and Herzegovina',
+                       'Denmark', 'Liechtenstein', 'Ukraine',
+                       'North Macedonia', 'Latvia', 'Andorra',
+                       'Norway', 'Portugal', 'Romania', 'Estonia',
+                       'Netherlands', 'San Marino', 'Belarus',
+                       'Iceland', 'Lithuania', 'Ireland', 'Luxembourg',
+                       'Monaco', 'Czechia', 'Slovakia', 'Holy See',
+                       'Serbia', 'Malta', 'Bulgaria', 'Albania',
+                       'Cyprus', 'Moldova', 'Andorra', 'Armenia',
+                       'Austria', 'Cyprus', 'Estonia', 'Georgia',
+                       'Gibraltar', 'Greenland', 'Croatia',
+                       'Israel', 'Iceland', 'Luxembourg',
+                       'Latvia', 'Monaco', 'Portugal', 'Romania',
+                       'Svalbard and Jan Mayen', 'Slovakia',
+                       'Turkey', 'Serbia', 'Montenegro',
+                       'Aland Islands', 'Guernsey',
+                       'Island of Man', 'Jersey'],
 
-        africa = ['Egypt', 'Algeria', 'Nigeria',
-                  'Morocco', 'Senegal', 'Tunisia',
-                  'South Africa', 'Togo', 'Cameroon',
-                  'Burkina Faso', 'Cote d\'Ivoire', 'Congo (Kinshasa)']
+            'asia': ['Thailand', 'Japan', 'Singapore', 'Mongolia',
+                     'Nepal', 'Malaysia', 'Sri Lanka', 'Philippines',
+                     'India', 'Cambodia', 'Pakistan',
+                     'Indonesia', 'United Arab Emirates', 'Lebanon',
+                     'Iraq', 'Oman', 'Afghanistan', 'Bahrain',
+                     'Kuwait', 'Qatar', 'Saudi Arabia',
+                     'Jordan', 'Azerbaijan', 'Bhutan', 'Maldives',
+                     'Bangladesh', 'Brunei', 'Korea, South', 'Vietnam',
+                     'Russia', 'Iran', 'Reunion', 'Taiwan*', 'Yemen',
+                     'American Samoa', 'Brunei Darussalam',
+                     'Guam', 'Hong Kong',
+                     'Heard Island and McDonald Islands',
+                     'British Indian Ocean Territory',
+                     'Kyrgystan', 'Kiribati', 'Korea, North',
+                     'Kazakhstan', 'Sri Lanka', 'Marshall Islands',
+                     'Lao People\'s Democratic Republic',
+                     'Myanmar', 'Mongolia', 'Macau', 'Macao SAR',
+                     'North Mariana Islands', 'Maldives',
+                     'Malaysia', 'Papua New Guinea', 'Palau',
+                     'Singapore', 'Syrian Arab Republic',
+                     'Tajikistan', 'Turkmenistan', 'Timor-Leste',
+                     'United States Minor Outlying Islands',
+                     'Uzbekistan', 'Somalia',
+                     'Palestinian Territory', 'Mauritania',
+                     'Comoros', 'Djibouti', 'Bahrain'],
 
-        americas = ['Brazil', 'Mexico', 'Ecuador',
-                    'Dominican Republic', 'Argentina',
-                    'Chile', 'Peru',
-                    'Costa Rica', 'Colombia', 'French Guiana',
-                    'Martinique', 'Paraguay', 'Panama',
-                    'Canada', 'US', 'Jamaica', 'Honduras', 'Bolivia']
+            'africa': ['Egypt', 'Algeria', 'Nigeria',
+                       'Morocco', 'Senegal', 'Tunisia',
+                       'South Africa', 'Togo', 'Cameroon',
+                       'Burkina Faso', 'Cote d\'Ivoire',
+                       'Congo (Kinshasa)'],
 
-        oceania = ['Australia', 'New Zealand']
+            'americas': ['Brazil', 'Mexico', 'Ecuador',
+                         'Dominican Republic', 'Argentina',
+                         'Chile', 'Peru', 'Netherlands Antilles',
+                         'Costa Rica', 'Colombia', 'French Guiana',
+                         'Martinique', 'Paraguay', 'Panama',
+                         'Canada', 'US', 'Jamaica', 'Honduras',
+                         'Bolivia', 'Antigua and Barbuda', 'Anguilla',
+                         'Argentina', 'Aruba', 'Barbados',
+                         'Bouvet Island', 'Belize', 'Cuba', 'Dominica',
+                         'Equador', 'Falkland Islands', 'Malvinas',
+                         'Grenada', 'Guadeloupe', 'Guyana',
+                         'South Georgia and the South Sandwich '
+                         'Islands', 'US',
+                         'Guatemala', 'Haiti', 'Saint Kitts and Nevis',
+                         'Cayman Islands', 'Saint Lucia', 'Montserrat',
+                         'Mexico', 'Nicaragua', 'Puerto Rico',
+                         'Paraguay', 'Suriname', 'El Salvador',
+                         'Turks and Caicos Islands',
+                         'Trinidad and Tobago', 'Uruguay',
+                         'Saint Vincent and the Grenadines',
+                         'Venezuela', 'Virgin Islands (British)',
+                         'Virgin Islands (US)', 'Saint Martin',
+                         'Saint Berthelemy', 'Bermuda',
+                         'Saint Pierre and Miquelon', 'Cuba', 'Guyana'],
 
-        europe_csv = pd_edit_series[europe + ['United Kingdom']].copy()
+            'oceania': ['Australia', 'New Zealand', 'New Caledonia',
+                        'Norfolk Island', 'Nauru', 'Niue',
+                        'Micronesia (federated States of)', 'Fiji',
+                        'Cook Islands', 'Christmas Island',
+                        'Cocos (Keeling) Islands', 'French Polynesia',
+                        'Pitcairn Islands', 'Solomon Islands',
+                        'French Southern Territories',
+                        'American Samoa', 'Tokelau', 'Tonga', 'Tuvalu',
+                        'Vanuatu', 'Wallis and Futuna', 'Samoa']}
+
+        europe = []
+        asia = []
+        oceania = []
+        americas = []
+        africa = []
+        uk_list = []
+        italy = []
+        china = []
+        others = []
+        ship = []
+        all_lists = [europe, asia, oceania, americas, africa, uk_list,
+                     italy, china, ship, others]
+        for_total = [europe, asia, oceania, americas, africa, china,
+                     others, ship]
+
+        print(pd_edit_series['Cruise Ship'])
+
+        for region, countries in country_dict.items():
+            for column in pd_edit_series:
+                if column in countries:
+                    if region == 'europe':
+                        if column not in europe:
+                            europe.append(column)
+                            if column == 'United Kingdom' or 'UK':
+                                if column not in uk_list:
+                                    uk_list.append(column)
+                    elif region == 'asia':
+                        if column not in asia:
+                            asia.append(column)
+                    elif region == 'africa':
+                        if column not in africa:
+                            africa.append(column)
+                    elif region == 'americas':
+                        if column not in americas:
+                            americas.append(column)
+                    elif region == 'oceania':
+                        if column not in oceania:
+                            oceania.append(column)
+
+                else:
+                    if column == 'Italy':
+                        if column not in italy:
+                            italy.append(column)
+
+                    elif column == 'China':
+                        if column not in china:
+                            china.append(column)
+
+                    elif column == 'Cruise Ship':
+                        if column not in ship:
+                            ship.append(column)
+
+                    else:
+                        others.append(column)
+
+        # -----------------------------------------------------------
+        # Segment of code it to catch any straggler countries not
+        # accounted for in the country_dict
+        remove_list = []
+        for list in all_lists:
+            for countries in list:
+                if countries in others:
+                    if countries not in remove_list:
+                        remove_list.append(countries)
+
+        others_final = [item for item in others
+                        if item not in remove_list]
+
+        if len(others_final) > 0:
+            logging.debug(others_final)
+            print('Exiting due to unaccounted countries')
+            sys.exit()
+
+        total_count_list = []
+        for list in for_total:
+            for country in list:
+                if country not in total_count_list:
+                    total_count_list.append(country)
+        # -----------------------------------------------------------
+
+        diamond_csv = pd_edit_series[ship].copy()
+        main_china_csv = pd_edit_series[china].copy()
+        europe_csv = pd_edit_series[europe].copy()
         americas_csv = pd_edit_series[americas].copy()
         asia_csv = pd_edit_series[asia].copy()
-        main_china_csv = pd_edit_series.loc[:, 'China'].copy()
-        uk_csv = pd_edit_series.loc[:, 'United Kingdom'].copy()
-        italy_csv = pd_edit_series.loc[:, 'Italy'].copy()
-        diamond_csv = pd_edit_series.loc[:, 'Cruise Ship'].copy()
+        africa_csv = pd_edit_series[africa].copy()
+        uk_csv = pd_edit_series[uk_list].copy()
+        italy_csv = pd_edit_series[italy].copy()
         oceania_csv = pd_edit_series[oceania].copy()
+
         csv_list = {'europe': europe_csv, 'america': americas_csv,
                     'asia': asia_csv, 'main_china': main_china_csv,
                     'UK': uk_csv, 'diamond': diamond_csv,
-                    'italy': italy_csv, 'oceania': oceania_csv}
+                    'italy': italy_csv, 'oceania': oceania_csv,
+                    'africa': africa_csv}
 
         pd_edit_series['Mainland_China_Total'] = \
-            pd_edit_series.loc[:, 'China'].sum(axis=1)
+            pd_edit_series[china].sum(axis=1)
 
-        pd_edit_series['US_Total'] = \
-            pd_edit_series.loc[:, 'US'].sum(axis=1)
-
-        pd_edit_series['Canada_Total'] = \
-            pd_edit_series.loc[:, 'Canada'].sum(axis=1)
-
-        pd_edit_series['Australia_Total'] = \
-            pd_edit_series[['Australia', 'New Zealand']].sum(axis=1)
+        pd_edit_series['Oceania_Total'] = \
+            pd_edit_series[oceania].sum(axis=1)
 
         pd_edit_series['Europe_Total'] = \
-            pd_edit_series[europe + ['United Kingdom'] +
-                           ['Italy']].sum(axis=1)
+            pd_edit_series[europe + ['Italy']].sum(axis=1)
 
         pd_edit_series['Diamond_Princess'] = \
-            pd_edit_series[['Cruise Ship']]
+            pd_edit_series[ship]
 
         pd_edit_series['UK_Total'] = \
-            pd_edit_series[['United Kingdom']].sum(axis=1)
+            pd_edit_series[uk_list].sum(axis=1)
 
         pd_edit_series['Asian_Total'] = \
             pd_edit_series[asia].sum(axis=1)
@@ -198,6 +319,11 @@ class Covid19Processing:
 
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
+
+        pd_edit_series['Global_Total'] = \
+            pd_edit_series[total_count_list].sum(axis=1)
+
+        print(pd_edit_series['Global_Total'])
 
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
@@ -241,15 +367,12 @@ class Covid19Processing:
 
     def plot_data(self, data):
         """
-        A function to plot the graphs with an increased 'ceiling' 
+        A function to plot the graphs with an increased 'ceiling'
         """
         title = self.filename.split('-')
         final_titles = title[2].split('.')
         self.final_title_sub = final_titles[0].lower()
         print(self.final_title_sub)
-        
-        data = data.drop('US_Total', axis=1)
-        data = data.drop('Canada_Total', axis=1)
 
         for column in data.columns:
             subset = data.loc[:, data.columns != str(column)]
@@ -284,10 +407,10 @@ class Covid19Processing:
             y_axis1 = data[column][-1]
             y_axis2 = data['Rest of the World'][-1]
 
-            plt.annotate(y_axis1, (x_axis[-1], y_axis1+500),
+            plt.annotate(y_axis1, (x_axis[-1], y_axis1 + 500),
                          bbox=dict(facecolor='blue', alpha=0.5),
                          fontsize=12)
-            plt.annotate(y_axis2, (x_axis[-1], y_axis2+500),
+            plt.annotate(y_axis2, (x_axis[-1], y_axis2 + 500),
                          bbox=dict(facecolor='red', alpha=0.5),
                          fontsize=12)
 
@@ -331,16 +454,18 @@ class Covid19Processing:
                                         f'{self.final_title_sub}',
                                   figsize=(1000, 750),
                                   legend='top_left',
-                                  xlabel='Dates - Formatted '
-                                         '(Day/Month)',
+
+                                  xlabel='Dates - '
+                                         'Formatted (Day/Month)',
+
                                   ylabel='Number of Cases',
                                   disable_scientific_axes='y',
                                   return_html=True,
                                   show_figure=False)
 
-        save_to = f'{self.out_dir}docs/graphics/interactive_plot_for_' \
+        save_to = f'{self.out_dir}graphics/interactive_plot_for_' \
                   f'{self.final_title_sub}.html'
-        logging.debug(f'Interactive plot saved to:\n{save_to}')
+        print(f'Interactive plot saved to:\n{save_to}')
 
         with open(save_to, 'w') as int_plot:
             int_plot.write(plotted)

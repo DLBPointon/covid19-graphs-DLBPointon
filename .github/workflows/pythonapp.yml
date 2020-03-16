@@ -23,6 +23,7 @@ jobs:
         pip install argparse
         pip install matplotlib
         pip install pandas
+        pip install pandas-bokeh
     - name: Lint with pycodestyle - will fail and stop on any issues!
       run: |
         pycodestyle covid19_graphs
