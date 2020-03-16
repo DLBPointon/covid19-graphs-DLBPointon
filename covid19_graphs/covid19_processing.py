@@ -421,10 +421,10 @@ class Covid19Processing:
             # millions
             data = data.drop('Rest of the World', axis=1)
 
-            self.dir_name = f'{self.out_dir}graphics/' \
+            self.dir_name = f'{self.out_dir}docs/graphics/' \
                             f'{x_axis[-1]}-2020-' \
                             f'{self.final_title_sub}_for_{column}.png'
-            self.web_name = f'{self.out_dir}graphics/' \
+            self.web_name = f'{self.out_dir}docs/graphics/' \
                             f'{self.final_title_sub}_for_{column}.png'
             fig.savefig(self.dir_name, transparent=False, dpi=300,
                         bbox_inches="tight")
@@ -464,7 +464,7 @@ class Covid19Processing:
                                   return_html=True,
                                   show_figure=False)
 
-        save_to = f'{self.out_dir}graphics/interactive_plot_for_' \
+        save_to = f'{self.out_dir}docs/graphics/interactive_plot_for_' \
                   f'{self.final_title_sub}.html'
         print(f'Interactive plot saved to:\n{save_to}')
 
