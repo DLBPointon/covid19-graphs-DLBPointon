@@ -5,11 +5,11 @@ for a good intrdouction
 from setuptools import setup
 
 setup(name='covid19_graphs',
-      version='0.0.1',
+      version='1.0.0',
       description='tool to download and process COVID-19 data',
       url='',
-      author='Oliver Smart',
-      author_email='oliver.smart@anglia.ac.uk',
+      author='Damon-Lee Pointon',
+      author_email='dp24@sanger.ac.uk',
       license='Apache 2.0',
       packages=['covid19_graphs'],
       scripts=['bin/covid19_graphs'],
