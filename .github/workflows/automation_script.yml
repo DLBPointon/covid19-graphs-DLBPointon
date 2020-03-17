@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.Website_Updater }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
@@ -33,14 +31,12 @@ jobs:
     - name: Run Covid19_graphs
       run: |
         covid19_graphs ./
-    - name: Commiter
-      env:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
-        COMMIT_MSG: |
-          'Updates to Graphics'
-          skip-checks: true
+    - name: Commit files
       run: |
-          git config --global user.name 'DLBPointon'
-          git config --global user.email 'damonlbp@hotmail.co.uk'
-          git commit -am "Updates for today"
-          git push
+        git config --local user.email "damonlbp@hotmail.co.uk"
+        git config --local user.name "DLBPointon"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
