@@ -31,7 +31,7 @@ class Covid19Processing:
                       f' {self.out_dir}')
 
         access_rights = 0o755
-        list_outs = ['downloaded', 'edited_csv', 'graphics']
+        list_outs = ['downloaded', 'edited_csv', 'docs/graphics']
         for dir in list_outs:
             path = self.out_dir + dir
             if os.path.exists(path):
