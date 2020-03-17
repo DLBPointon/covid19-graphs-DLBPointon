@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.Website_Updater }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
@@ -38,10 +40,7 @@ jobs:
           'Updates to Graphics'
           skip-checks: true
       run: |
-        git config user.email 'damonlbp@hotmail.co.uk'
-        git config user.name 'DLBPointon'
-        git remote set-url <TOKEN> https://x-acess-token:${GITHUB_TOKEN}@github.com/dlbpointon.github.io.git
-        git checkout master
-        git add *
-        git commit -a -m '${COMMIT_MSG}
-        git push origin master
+          git config --global user.name 'DLBPointon'
+          git config --global user.email 'damonlbp@hotmail.co.uk'
+          git commit -am "Updates for today"
+          git push
