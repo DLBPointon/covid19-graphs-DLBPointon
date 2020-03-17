@@ -164,10 +164,13 @@ class Covid19Processing:
                        'South Africa', 'Togo', 'Cameroon',
                        'Burkina Faso', 'Cote d\'Ivoire',
                        'Congo (Kinshasa)', 'Congo (Brazzaville)',
+                       'Republic of the Congo',
                        'Central African Republic', 'Eswatini',
                        'Eswatini', 'Ethiopia', 'Gabon', 'Ghana',
                        'Guinea', 'Equatorial Guinea', 'Kenya',
-                       'Namibia', 'Rwanda', 'Sudan', 'Seychelles'],
+                       'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
+                       'Republic of Congo', 'Tanzania', 'Mayotte',
+                       'Benin', 'Liberia'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
@@ -193,7 +196,7 @@ class Covid19Processing:
                          'Virgin Islands (US)', 'Saint Martin',
                          'Saint Berthelemy', 'Bermuda',
                          'Saint Pierre and Miquelon', 'Cuba', 'Guyana',
-                         'Curacao'],
+                         'Curacao', 'The Bahamas'],
 
             'oceania': ['Australia', 'New Zealand', 'New Caledonia',
                         'Norfolk Island', 'Nauru', 'Niue',
@@ -470,3 +473,5 @@ class Covid19Processing:
 
         with open(save_to, 'w') as int_plot:
             int_plot.write(plotted)
+
+        data.drop('Total_Cases', axis=1)
