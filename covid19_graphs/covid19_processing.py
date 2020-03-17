@@ -303,7 +303,7 @@ class Covid19Processing:
                     'italy': italy_csv, 'oceania': oceania_csv,
                     'africa': africa_csv}
         backup_frame = pd_edit_series.copy()
-        backup_frame['Global'] = \
+        backup_frame['Global_Cases'] = \
             backup_frame.sum(axis=1)
 
         pd_edit_series['Mainland_China_Total'] = \
@@ -382,7 +382,7 @@ class Covid19Processing:
 
         for column in data.columns:
             data['Rest of the World'] = \
-                backup_frame['Global'] - data[column]
+                backup_frame['Global_Cases'] - data[column]
             x_axis = data.index.values
 
             fig, axes = plt.subplots()
@@ -452,7 +452,7 @@ class Covid19Processing:
         A function to produce advanced interactive plots with the use
         of bokeh
         """
-        data['Total_Cases'] = backup_frame.sum(axis=1)
+        data['Total_Cases'] = backup_frame['Global_Cases']
 
         plotted = data.plot_bokeh(title=f'Global Data for Covid-19 '
                                         f'{self.final_title_sub}',
