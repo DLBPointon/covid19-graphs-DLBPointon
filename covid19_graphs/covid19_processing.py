@@ -157,7 +157,8 @@ class Covid19Processing:
                      'United States Minor Outlying Islands',
                      'Uzbekistan', 'Somalia',
                      'occupied Palestinian territory', 'Mauritania',
-                     'Comoros', 'Djibouti', 'Bahrain'],
+                     'Comoros', 'Djibouti', 'Bahrain', 'Nepal',
+                     'Malaysia', 'Singapore'],
 
             'africa': ['Egypt', 'Algeria', 'Nigeria',
                        'Morocco', 'Senegal', 'Tunisia',
@@ -221,7 +222,7 @@ class Covid19Processing:
         all_lists = [europe, asia, oceania, americas, africa, uk_list,
                      italy, china, ship, others]
         for_total = [europe, asia, oceania, americas, africa, china,
-                     others, ship]
+                     others, ship, italy]
 
         for region, countries in country_dict.items():
             for column in pd_edit_series:
@@ -301,6 +302,9 @@ class Covid19Processing:
                     'UK': uk_csv, 'diamond': diamond_csv,
                     'italy': italy_csv, 'oceania': oceania_csv,
                     'africa': africa_csv}
+        backup_frame = pd_edit_series.copy()
+        backup_frame['Global'] = \
+            backup_frame.sum(axis=1)
 
         pd_edit_series['Mainland_China_Total'] = \
             pd_edit_series[china].sum(axis=1)
@@ -326,8 +330,7 @@ class Covid19Processing:
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
 
-        # pd_edit_series['Global_Total'] = \
-          #  pd_edit_series[total_count_list].sum(axis=1)
+
 
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
@@ -344,7 +347,7 @@ class Covid19Processing:
         for place in oceania:
             pd_edit_series = pd_edit_series.drop(place, axis=1)
 
-        return csv_list, pd_edit_series
+        return csv_list, pd_edit_series, backup_frame
 
     def write_new_csv(self, pd_edit_series, csv_list):
         """
@@ -369,19 +372,17 @@ class Covid19Processing:
         multiplier = 10 ** decimals
         return math.ceil(number * multiplier) / multiplier
 
-    def plot_data(self, data):
+    def plot_data(self, data, backup_frame):
         """
         A function to plot the graphs with an increased 'ceiling'
         """
         title = self.filename.split('-')
         final_titles = title[2].split('.')
         self.final_title_sub = final_titles[0].lower()
-        print(self.final_title_sub)
 
         for column in data.columns:
-            subset = data.loc[:, data.columns != str(column)]
-
-            data['Rest of the World'] = subset.sum(axis=1)
+            data['Rest of the World'] = \
+                backup_frame['Global'] - data[column]
             x_axis = data.index.values
 
             fig, axes = plt.subplots()
@@ -446,13 +447,12 @@ class Covid19Processing:
         plt.close()
         return data
 
-    def bokehplot(self, data):
+    def bokehplot(self, data, backup_frame):
         """
         A function to produce advanced interactive plots with the use
         of bokeh
         """
-        subset = data.loc[:, data.columns]
-        data['Total_Cases'] = subset.sum(axis=1)
+        data['Total_Cases'] = backup_frame.sum(axis=1)
 
         plotted = data.plot_bokeh(title=f'Global Data for Covid-19 '
                                         f'{self.final_title_sub}',

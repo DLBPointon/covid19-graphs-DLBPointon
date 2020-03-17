@@ -31,9 +31,9 @@ https://aru-bioinf-ise.github.io/covid19-graphs-DLBPointon/
 """
 import argparse
 import logging
-import requests
 import sys
 import os
+import requests
 from covid19_graphs.covid19_processing import Covid19Processing
 
 
@@ -124,10 +124,10 @@ def main():
         c_process.download_from_github()
         pd_edit_series = c_process.process_data()
         c_process.write_csv_files(pd_edit_series)
-        csv_list, data = c_process.data(pd_edit_series)
+        csv_list, data, backup_frame = c_process.data(pd_edit_series)
         c_process.write_new_csv(pd_edit_series, csv_list)
-        data_2 = c_process.plot_data(data)
-        c_process.bokehplot(data_2)
+        data_2 = c_process.plot_data(data, backup_frame)
+        c_process.bokehplot(data_2, backup_frame)
     # site_update_helper()
 
 
