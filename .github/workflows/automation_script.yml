@@ -27,6 +27,7 @@ jobs:
         pip install argparse
         pip install matplotlib
         pip install pandas
+        pip install pandas-bokeh
     - name: Run Covid19_graphs
       run: |
         covid19_graphs ./
