@@ -330,8 +330,6 @@ class Covid19Processing:
         pd_edit_series['African_Total'] = \
             pd_edit_series[africa].sum(axis=1)
 
-
-
         # As China is being kept separate
         pd_edit_series = pd_edit_series.drop('China', axis=1)
         pd_edit_series = pd_edit_series.drop('Cruise Ship', axis=1)
