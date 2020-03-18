@@ -31,9 +31,7 @@ https://aru-bioinf-ise.github.io/covid19-graphs-DLBPointon/
 """
 import argparse
 import logging
-import sys
 import os
-import requests
 from covid19_graphs.covid19_processing import Covid19Processing
 
 
