@@ -1,7 +1,7 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+@import "{{ sitetheme }}";
 
 .inner {
   max-wideth: 80%;
