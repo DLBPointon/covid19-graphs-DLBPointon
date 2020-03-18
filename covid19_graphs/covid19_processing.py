@@ -69,9 +69,10 @@ class Covid19Processing:
     def process_data(self):
         """processes the stored data into a form for CSV files"""
         logging.debug('process_data called')
-
+        
         pd_time_series = pd.read_csv(f'{self.out_dir}/downloaded/'
                                      f'{self.filename}')
+
         pd_time_series = pd_time_series.drop('Lat', axis=1)
         pd_time_series = pd_time_series.drop('Long', axis=1)
         no_of_dates = len(pd_time_series.columns) - 2
@@ -155,7 +156,7 @@ class Covid19Processing:
                      'Singapore', 'Syrian Arab Republic',
                      'Tajikistan', 'Turkmenistan', 'Timor-Leste',
                      'United States Minor Outlying Islands',
-                     'Uzbekistan', 'Somalia',
+                     'Uzbekistan',
                      'occupied Palestinian territory', 'Mauritania',
                      'Comoros', 'Djibouti', 'Bahrain', 'Nepal',
                      'Malaysia', 'Singapore'],
@@ -171,7 +172,7 @@ class Covid19Processing:
                        'Guinea', 'Equatorial Guinea', 'Kenya',
                        'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
                        'Republic of Congo', 'Tanzania', 'Mayotte',
-                       'Benin', 'Liberia'],
+                       'Benin', 'Liberia', 'Somalia'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
@@ -228,11 +229,12 @@ class Covid19Processing:
             for column in pd_edit_series:
                 if column in countries:
                     if region == 'europe':
+                        if column == 'United Kingdom':
+                            if column not in uk_list:
+                                uk_list.append(column)
                         if column not in europe:
                             europe.append(column)
-                            if column == 'United Kingdom' or 'UK':
-                                if column not in uk_list:
-                                    uk_list.append(column)
+
                     elif region == 'asia':
                         if column not in asia:
                             asia.append(column)
