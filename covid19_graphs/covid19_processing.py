@@ -386,26 +386,26 @@ class Covid19Processing:
                 data['Rest of the World'] = \
                     backup_frame['Global_Cases'] - data[column]
                 x_axis = data.index.values
-    
+
                 fig, axes = plt.subplots()
                 axes.plot(x_axis, data[column], marker='o',
                           label=column)
                 axes.plot(x_axis, data['Rest of the World'], marker='s',
                           label='Rest of the World')
                 fig.autofmt_xdate()
-    
+
                 every_nth = 4
                 for number, label in enumerate(axes.xaxis.get_ticklabels()):
                     if number % every_nth != 0:
                         label.set_visible(False)
-    
+
                 axes.set(xlabel='Date', ylabel='Cases',
                          title=f'Covid-19 {self.final_title_sub} '
                                f'cases for {column} - data from '
                                f'John Hopkins CSSE')
                 axes.grid()
                 axes.legend()
-    
+
                 # Setting the y-axis
                 if mode == 'log':
                     axes.set_yscale('log')
@@ -415,7 +415,7 @@ class Covid19Processing:
                     rounded_max = self.round_up(max_number, -3)
                     rounded_max += 2000
                     axes.set_ylim([0, rounded_max])
-    
+
                 # Adds Labels to annotate the last data point for each plot
                 y_axis1 = data[column][-1]
                 y_axis2 = data['Rest of the World'][-1]
@@ -426,13 +426,13 @@ class Covid19Processing:
                 plt.annotate(y_axis2, (x_axis[-1], y_axis2 + 500),
                              bbox=dict(facecolor='red', alpha=0.5),
                              fontsize=12)
-    
+
                 # Required in order to stop the column from summing
                 # the total of each run through the loop
                 # otherwise this leads to Rest of World values in the
                 # millions
                 data = data.drop('Rest of the World', axis=1)
-                
+
                 if mode == 'log':
                     self.dir_name = f'{self.out_dir}docs/graphics/' \
                                     f'log_' \
