@@ -31,17 +31,12 @@ jobs:
     - name: Run Covid19_graphs
       run: |
         covid19_graphs ./
-    - name: Commiter
-      env:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
-        COMMIT_MSG: |
-          'Updates to Graphics'
-          skip-checks: true
+    - name: Commit files
       run: |
-        git config user.email 'damonlbp@hotmail.co.uk'
-        git config user.name 'DLBPointon'
-        git remote set-url <TOKEN> https://x-acess-token:${GITHUB_TOKEN}@github.com/dlbpointon.github.io.git
-        git checkout master
-        git add *
-        git commit -a -m '${COMMIT_MSG}
-        git push origin master
+        git config --local user.email "damonlbp@hotmail.co.uk"
+        git config --local user.name "DLBPointon"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
