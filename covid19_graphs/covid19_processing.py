@@ -69,7 +69,7 @@ class Covid19Processing:
     def process_data(self):
         """processes the stored data into a form for CSV files"""
         logging.debug('process_data called')
-        
+
         pd_time_series = pd.read_csv(f'{self.out_dir}/downloaded/'
                                      f'{self.filename}')
 
