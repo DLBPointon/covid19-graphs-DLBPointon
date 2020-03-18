@@ -13,19 +13,34 @@ The currently more important regions will be previewed here.
 [Global - Deaths](graphics/interactive_plot_for_deaths.html)
 
 #### The UK
-<img src="graphics/confirmed_for_UK_Total.png" width="250" height="200">
-<img src="graphics/recovered_for_UK_Total.png" width="250" height="200">
-<img src="graphics/deaths_for_UK_Total.png" width="250" height="200">
+<img src="graphics/confirmed_for_UK_Total.png" width="350" height="300">
+<img src="graphics/log_confirmed_for_UK_Total.png" width="350" height="300">
+
+<img src="graphics/recovered_for_UK_Total.png" width="350" height="300">
+<img src="graphics/log_recovered_for_UK_Total.png" width="350" height="300">
+
+<img src="graphics/deaths_for_UK_Total.png" width="350" height="300">
+<img src="graphics/log_deaths_for_UK_Total.png" width="350" height="300">
 
 #### Italy
-<img src="graphics/confirmed_for_Italy.png" width="250" height="200">
-<img src="graphics/recovered_for_Italy.png" width="250" height="200">
-<img src="graphics/deaths_for_Italy.png" width="250" height="200">
+<img src="graphics/confirmed_for_Italy.png" width="350" height="300">
+<img src="graphics/log_confirmed_for_Italy.png" width="350" height="300">
+
+<img src="graphics/recovered_for_Italy.png" width="350" height="300">
+<img src="graphics/log_recovered_for_Italy.png" width="350" height="300">
+
+<img src="graphics/deaths_for_Italy.png" width="350" height="300">
+<img src="graphics/log_deaths_for_Italy.png" width="350" height="300">
 
 #### Mainland China
-<img src="graphics/confirmed_for_Mainland_China_Total.png" width="250" height="200">
-<img src="graphics/recovered_for_Mainland_China_Total.png" width="250" height="200">
-<img src="graphics/deaths_for_Mainland_China_Total.png" width="250" height="200">
+<img src="graphics/confirmed_for_Mainland_China_Total.png" width="350" height="300">
+<img src="graphics/log_confirmed_for_Mainland_China_Total.png" width="350" height="300">
+
+<img src="graphics/recovered_for_Mainland_China_Total.png" width="350" height="300">
+<img src="graphics/log_recovered_for_Mainland_China_Total.png" width="350" height="300">
+
+<img src="graphics/deaths_for_Mainland_China_Total.png" width="350" height="300">
+<img src="graphics/log_deaths_for_Mainland_China_Total.png" width="350" height="300">
 
 The Covid-19 is a coronavirus that has recently made the news due to its sudden spread across the world. Mainly causing flu-like symptoms there is the possibility of pneumonia in rare circumstances.
 
