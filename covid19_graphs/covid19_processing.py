@@ -172,7 +172,7 @@ class Covid19Processing:
                        'Guinea', 'Equatorial Guinea', 'Kenya',
                        'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
                        'Republic of Congo', 'Tanzania', 'Mayotte',
-                       'Benin', 'Liberia', 'Somalia'],
+                       'Benin', 'Liberia', 'Somalia', 'The Gambia'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
@@ -380,70 +380,86 @@ class Covid19Processing:
         final_titles = title[2].split('.')
         self.final_title_sub = final_titles[0].lower()
 
-        for column in data.columns:
-            data['Rest of the World'] = \
-                backup_frame['Global_Cases'] - data[column]
-            x_axis = data.index.values
+        graph_list = ['date', 'web', 'log']
+        for mode in graph_list:
+            for column in data.columns:
+                data['Rest of the World'] = \
+                    backup_frame['Global_Cases'] - data[column]
+                x_axis = data.index.values
+    
+                fig, axes = plt.subplots()
+                axes.plot(x_axis, data[column], marker='o',
+                          label=column)
+                axes.plot(x_axis, data['Rest of the World'], marker='s',
+                          label='Rest of the World')
+                fig.autofmt_xdate()
+    
+                every_nth = 4
+                for number, label in enumerate(axes.xaxis.get_ticklabels()):
+                    if number % every_nth != 0:
+                        label.set_visible(False)
+    
+                axes.set(xlabel='Date', ylabel='Cases',
+                         title=f'Covid-19 {self.final_title_sub} '
+                               f'cases for {column} - data from '
+                               f'John Hopkins CSSE')
+                axes.grid()
+                axes.legend()
+    
+                # Setting the y-axis
+                if mode == 'log':
+                    axes.set_yscale('log')
+                else:
+                    data_max = data.max(axis=1)
+                    max_number = data_max[-1]
+                    rounded_max = self.round_up(max_number, -3)
+                    rounded_max += 2000
+                    axes.set_ylim([0, rounded_max])
+    
+                # Adds Labels to annotate the last data point for each plot
+                y_axis1 = data[column][-1]
+                y_axis2 = data['Rest of the World'][-1]
+    
+                plt.annotate(y_axis1, (x_axis[-1], y_axis1 + 500),
+                             bbox=dict(facecolor='blue', alpha=0.5),
+                             fontsize=12)
+                plt.annotate(y_axis2, (x_axis[-1], y_axis2 + 500),
+                             bbox=dict(facecolor='red', alpha=0.5),
+                             fontsize=12)
+    
+                # Required in order to stop the column from summing
+                # the total of each run through the loop
+                # otherwise this leads to Rest of World values in the
+                # millions
+                data = data.drop('Rest of the World', axis=1)
+                
+                if mode == 'log':
+                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                                    f'log_' \
+                                    f'{self.final_title_sub}_for_' \
+                                    f'{column}.png'
+                elif mode == 'date':
+                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                                    f'{x_axis[-1]}-2020-' \
+                                    f'{self.final_title_sub}_for_{column}.png'
 
-            fig, axes = plt.subplots()
-            axes.plot(x_axis, data[column], marker='o',
-                      label=column)
-            axes.plot(x_axis, data['Rest of the World'], marker='s',
-                      label='Rest of the World')
+                elif mode == 'web':
+                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                                    f'{self.final_title_sub}_for_{column}.png'
 
-            every_nth = 4
-            for number, label in enumerate(axes.xaxis.get_ticklabels()):
-                if number % every_nth != 0:
-                    label.set_visible(False)
-            axes.set(xlabel='Date', ylabel='Cases',
-                     title=f'Covid-19 {self.final_title_sub} cases for '
-                           f'{column} - data from John Hopkins CSSE')
-            axes.grid()
-            axes.legend()
+                else:
+                    print('error')
 
-            # Setting the y axis
-            data_max = data.max(axis=1)
-            max_number = data_max[-1]
-            rounded_max = self.round_up(max_number, -3)
-            rounded_max += 2000
-            axes.set_ylim([0, rounded_max])
+                fig.savefig(self.dir_name, transparent=False, dpi=300,
+                            bbox_inches="tight")
 
-            # Adds Labels to annotate the last data point for each plot
-            y_axis1 = data[column][-1]
-            y_axis2 = data['Rest of the World'][-1]
-
-            plt.annotate(y_axis1, (x_axis[-1], y_axis1 + 500),
-                         bbox=dict(facecolor='blue', alpha=0.5),
-                         fontsize=12)
-            plt.annotate(y_axis2, (x_axis[-1], y_axis2 + 500),
-                         bbox=dict(facecolor='red', alpha=0.5),
-                         fontsize=12)
-
-            # Required in order to stop the column from summing
-            # the total of each run through the loop
-            # otherwise this leads to Rest of World values in the
-            # millions
-            data = data.drop('Rest of the World', axis=1)
-
-            self.dir_name = f'{self.out_dir}docs/graphics/' \
-                            f'{x_axis[-1]}-2020-' \
-                            f'{self.final_title_sub}_for_{column}.png'
-            self.web_name = f'{self.out_dir}docs/graphics/' \
-                            f'{self.final_title_sub}_for_{column}.png'
-            fig.savefig(self.dir_name, transparent=False, dpi=300,
-                        bbox_inches="tight")
-            fig.savefig(self.web_name, transparent=False, dpi=300,
-                        bbox_inches="tight")
-
-            if os.path.exists(self.dir_name):
-                logging.debug(f'File saved at: {self.dir_name}')
-                logging.debug(f'File saved at: {self.web_name}')
-                print(f'Files saved at:\n'
-                      f'{self.dir_name}\n'
-                      f'{self.web_name}')
-            else:
-                logging.debug('Failed to save')
-            logging.debug(os.getcwd())
+                if os.path.exists(self.dir_name):
+                    logging.debug(f'File saved at: {self.dir_name}')
+                    print(f'Files saved at:\n'
+                          f'{self.dir_name}\n')
+                else:
+                    logging.debug('Failed to save')
+                logging.debug(os.getcwd())
         plt.close()
         return data
 
