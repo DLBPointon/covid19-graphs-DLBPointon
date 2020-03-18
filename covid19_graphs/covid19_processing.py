@@ -419,7 +419,7 @@ class Covid19Processing:
                 # Adds Labels to annotate the last data point for each plot
                 y_axis1 = data[column][-1]
                 y_axis2 = data['Rest of the World'][-1]
-    
+
                 plt.annotate(y_axis1, (x_axis[-1], y_axis1 + 500),
                              bbox=dict(facecolor='blue', alpha=0.5),
                              fontsize=12)
