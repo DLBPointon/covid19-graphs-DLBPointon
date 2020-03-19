@@ -1,4 +1,4 @@
-,Germany,Finland,Sweden,Spain,Belgium,Croatia,Switzerland,Austria,Israel,Georgia,Greece,North Macedonia,Norway,Romania,Estonia,San Marino,Belarus,Iceland,Lithuania,Ireland,Luxembourg,Monaco,Armenia,Portugal,Andorra,Latvia,Ukraine,Hungary,Liechtenstein,Poland,Bosnia and Herzegovina,Slovenia,Serbia,Slovakia,Malta,Bulgaria,Albania,Cyprus,Holy See,France,France,France,France,France,France,France,France,Denmark,Denmark,Czechia,Moldova,United Kingdom,United Kingdom,United Kingdom,United Kingdom,Turkey,Jersey,Guernsey,Kosovo,Netherlands,Netherlands,Greenland,Montenegro
+,Germany,Finland,Sweden,Spain,Belgium,Croatia,Switzerland,Austria,Israel,Georgia,Greece,North Macedonia,Norway,Romania,Estonia,San Marino,Belarus,Iceland,Lithuania,Ireland,Luxembourg,Monaco,Armenia,Portugal,Andorra,Latvia,Ukraine,Hungary,Liechtenstein,Poland,Bosnia and Herzegovina,Slovenia,Serbia,Slovakia,Malta,Bulgaria,Albania,Cyprus,Holy See,France,France,France,France,France,France,France,France,Denmark,Denmark,Czechia,Moldova,United Kingdom,United Kingdom,United Kingdom,United Kingdom,United Kingdom,Turkey,Kosovo,Netherlands,Netherlands,Netherlands,Greenland,Montenegro
 22-01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 23-01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 24-01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -51,7 +51,8 @@
 11-03,25,1,1,183,1,0,4,4,4,0,0,0,1,6,0,0,3,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,0,0,0,0,0
 12-03,25,1,1,183,1,0,4,4,4,0,0,0,1,6,0,0,3,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,0,0,0,0,0
 13-03,46,1,1,193,1,1,4,6,4,0,0,1,1,7,0,0,3,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,0,0,0,0,0
-14-03,46,1,1,517,1,1,4,6,4,0,8,1,1,9,0,4,3,1,0,0,0,0,0,2,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,0,2,0,0,0
-15-03,46,10,1,517,1,1,4,6,4,0,8,1,1,9,1,4,3,8,1,0,0,0,0,2,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,0,2,0,0,0
-16-03,67,10,1,530,1,2,4,6,4,1,8,1,1,9,1,4,3,0,1,0,0,0,0,3,1,1,0,1,0,13,0,0,1,0,2,0,0,0,0,12,0,0,0,0,0,0,0,1,0,3,0,0,1,20,0,0,0,0,0,2,0,0,0
-17-03,67,10,1,1028,1,4,4,1,11,1,8,1,1,16,1,4,3,0,1,5,0,0,1,3,1,1,0,2,0,13,2,0,1,0,2,0,0,0,0,12,0,0,0,0,0,0,0,1,0,3,1,0,1,52,0,0,0,0,0,2,0,0,0
+14-03,46,1,1,517,1,1,4,6,4,0,8,1,1,9,0,4,3,1,0,0,0,0,0,2,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,2,0,0,0,0
+15-03,46,10,1,517,1,1,4,6,4,0,8,1,1,9,1,4,3,8,1,0,0,0,0,2,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,12,0,0,0,0,0,0,0,1,0,0,0,0,1,18,0,0,0,0,2,0,0,0,0
+16-03,67,10,1,530,1,2,4,6,4,1,8,1,1,9,1,4,3,0,1,0,0,0,0,3,1,1,0,1,0,13,0,0,1,0,2,0,0,0,0,12,0,0,0,0,0,0,0,1,0,3,0,0,1,20,0,0,0,0,2,0,0,0,0
+17-03,67,10,1,1028,1,4,4,1,11,1,8,1,1,16,1,4,3,0,1,5,0,0,1,3,1,1,0,2,0,13,2,0,1,0,2,0,0,0,0,12,0,0,0,0,0,0,0,1,0,3,1,0,1,52,0,0,0,0,2,0,0,0,0
+18-03,105,10,1,1081,31,4,15,9,11,1,8,1,1,19,1,4,5,5,1,5,0,0,1,3,1,1,0,2,0,13,2,0,1,0,2,0,0,0,0,12,0,0,0,0,0,0,0,1,0,3,1,0,2,65,0,0,0,0,2,0,0,0,0
