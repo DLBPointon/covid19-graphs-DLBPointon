@@ -156,7 +156,7 @@ class Covid19Processing:
                      'Singapore', 'Syrian Arab Republic',
                      'Tajikistan', 'Turkmenistan', 'Timor-Leste',
                      'United States Minor Outlying Islands',
-                     'Uzbekistan',
+                     'Uzbekistan', 'Kyrgyzstan',
                      'occupied Palestinian territory', 'Mauritania',
                      'Comoros', 'Djibouti', 'Bahrain', 'Nepal',
                      'Malaysia', 'Singapore'],
@@ -172,7 +172,8 @@ class Covid19Processing:
                        'Guinea', 'Equatorial Guinea', 'Kenya',
                        'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
                        'Republic of Congo', 'Tanzania', 'Mayotte',
-                       'Benin', 'Liberia', 'Somalia', 'The Gambia'],
+                       'Benin', 'Liberia', 'Somalia', 'The Gambia',
+                       'Gambia, The', 'Zambia', 'Mauritius'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
