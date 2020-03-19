@@ -13,35 +13,41 @@ The currently more important regions will be previewed here.
 [Global - Deaths](graphics/interactive_plot_for_deaths.html)
 
 #### The UK
-**Confirmed Cases
+**Confirmed Cases**
 <img src="graphics/confirmed_for_UK_Total.png" width="350" height="250">
 <img src="graphics/log_confirmed_for_UK_Total.png" width="350" height="250">
-Cases in which patients have recovered
+
+**Cases in which patients have recovered**
 <img src="graphics/recovered_for_UK_Total.png" width="350" height="250">
 <img src="graphics/log_recovered_for_UK_Total.png" width="350" height="250">
-Cases which have led to death
+
+**Cases which have led to death**
 <img src="graphics/deaths_for_UK_Total.png" width="350" height="250">
 <img src="graphics/log_deaths_for_UK_Total.png" width="350" height="250">
 
 #### Italy
-**Confirmed Cases
+**Confirmed Cases**
 <img src="graphics/confirmed_for_Italy.png" width="350" height="250">
 <img src="graphics/log_confirmed_for_Italy.png" width="350" height="250">
-Cases in which patients have recovered
+
+**Cases in which patients have recovered**
 <img src="graphics/recovered_for_Italy.png" width="350" height="250">
 <img src="graphics/log_recovered_for_Italy.png" width="350" height="250">
-Cases which have led to death
+
+**Cases which have led to death**
 <img src="graphics/deaths_for_Italy.png" width="350" height="250">
 <img src="graphics/log_deaths_for_Italy.png" width="350" height="250">
 
 #### Mainland China
-**Confirmed Cases
+**Confirmed Cases**
 <img src="graphics/confirmed_for_Mainland_China_Total.png" width="350" height="250">
 <img src="graphics/log_confirmed_for_Mainland_China_Total.png" width="350" height="250">
-Cases in which patients have recovered
+
+**Cases in which patients have recovered**
 <img src="graphics/recovered_for_Mainland_China_Total.png" width="350" height="250">
 <img src="graphics/log_recovered_for_Mainland_China_Total.png" width="350" height="250">
-Cases which have led to death
+
+**Cases which have led to death**
 <img src="graphics/deaths_for_Mainland_China_Total.png" width="350" height="250">
 <img src="graphics/log_deaths_for_Mainland_China_Total.png" width="350" height="250">
 
