@@ -1,4 +1,4 @@
-|  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |
+|  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |  [CSV Page](csv_page.md)  |
 ## Graphs for the number of Deaths caused by Covid-19
 
 The below graphs show the deaths caused by Covid-19 for each major geographical region compared to the world.

@@ -1,4 +1,4 @@
-|  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |
+|  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |  [CSV Page](csv_page.md)  |
 # Graphs for Confirmed Cases of Covid-19
 The below graphs show the Confirmed Covid-19 cases for each major geographical region compared to the world.
 
