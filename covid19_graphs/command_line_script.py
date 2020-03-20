@@ -31,7 +31,6 @@ https://aru-bioinf-ise.github.io/covid19-graphs-DLBPointon/
 """
 import argparse
 import logging
-import os
 from covid19_graphs.covid19_processing import Covid19Processing
 
 
@@ -65,37 +64,6 @@ def parse_command_line_args(test_override=None):
     return args
 
 
-def site_update_helper():
-    """
-    A function to add functionality to download the website repo
-    """
-
-    # Experimental for github automation
-    if os.path.exists('/home/runner/work'):
-        print('Working on GitHub')
-        os.popen('cp -rf graphics /home/runner/work')
-    else:
-        print('Working on Local machine')
-
-        os.chdir('../')
-
-        findcovid = os.listdir()
-        if 'covid19-graphs-DLBPointon' in findcovid:
-            repo = 'https://github.com/DLBPointon/dlbpointon.github.io.git'
-
-            if os.path.exists('dlbpointon.github.io'):
-                print('Website repo already downloaded')
-            else:
-
-                os.popen(f'git clone {repo}')
-                print('Website downloading')
-
-            os.popen('cp -rf '
-                     'covid19-graphs-DLBPointon/graphics '
-                     'dlbpointon.github.io/')
-            # os.popen('python dlbpointon.github.io/website_updater.py')
-
-
 def main():
     """ main function invoked by covid19 script"""
     args = parse_command_line_args()
@@ -105,8 +73,8 @@ def main():
                             format='debug %(message)s')
     print(__doc__)
     out_dir = args.out_dir
-    logging.debug(f'args namespace: {args}')
-    logging.debug(f'will output to directory: {out_dir}')
+    logging.debug('args namespace: %s', args)
+    logging.debug('will output to directory: %s', out_dir)
 
     file_names = ['time_series_19-covid-Confirmed.csv',
                   'time_series_19-covid-Deaths.csv',
@@ -126,7 +94,6 @@ def main():
         c_process.write_new_csv(pd_edit_series, csv_list)
         data_2 = c_process.plot_data(data, backup_frame)
         c_process.bokehplot(data_2, backup_frame)
-    # site_update_helper()
 
 
 if __name__ == '__main__':
