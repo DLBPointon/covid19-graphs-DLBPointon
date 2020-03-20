@@ -10,7 +10,7 @@ import pandas_bokeh
 
 
 class Covid19Processing:
-    """Downloads and process time series data from
+    """Downloads and processes time series data from
     https://github.com/CSSEGISandData/COVID-19/
     """
 
@@ -19,32 +19,34 @@ class Covid19Processing:
         self.filename = filename
         self.out_dir = out_dir
         self.full_url = full_url
+        self.response = None
+        self.final_title_sub = None
         print(filename)
-        logging.debug(f'Covid19Processing working on {filename}')
+        logging.debug('Covid19Processing working on %s', filename)
 
     def create_out_dir(self):
         """creates a new output directory out_dir
-        This will be used for all files to be written"""
+        This will be used for all files to be written to"""
 
-        logging.debug(f'create_out_dir called'
-                      f'Output directory to be created:'
-                      f' {self.out_dir}')
+        logging.debug('create_out_dir called \n'
+                      'Output directory to be created: '
+                      '%s', self.out_dir)
 
         access_rights = 0o755
-        list_outs = ['downloaded', 'edited_csv', 'docs/graphics']
-        for dir in list_outs:
-            path = self.out_dir + dir
+        list_outs = ['docs/downloaded', 'docs/edited_csv', 'docs/graphics']
+        for address in list_outs:
+            path = self.out_dir + address
             if os.path.exists(path):
-                logging.debug(f'Path: {path} :already exists')
+                logging.debug('Path: %s :already exists', path)
             else:
                 try:
                     os.makedirs(path, access_rights)
                 except OSError:
-                    logging.debug(f'Creation of directory has failed '
-                                  f'at: {path}')
+                    logging.debug('Creation of directory has failed '
+                                  'at: %s', path)
                 else:
-                    logging.debug(f'Successfully created the '
-                                  f'directory path at:{path}')
+                    logging.debug('Successfully created the '
+                                  'directory path at: %s', path)
         return self.out_dir, list_outs
 
     def download_from_github(self):
@@ -56,21 +58,21 @@ class Covid19Processing:
         status_code = self.response.status_code
         if status_code == 200:
             logging.debug('Success response gave status code 200')
-            with open(f'{self.out_dir}/downloaded/{self.filename}',
+            with open(f'{self.out_dir}docs/downloaded/{self.filename}',
                       'wb') as csv_written:
                 csv_written.write(self.response.content)
         else:
-            logging.debug(f'Error in requests download'
-                          f'status_code={status_code}')
+            logging.debug('Error in requests download'
+                          'status_code=%d', status_code)
             sys.exit()
 
         return self.response
 
     def process_data(self):
-        """processes the stored data into a form for CSV files"""
+        """processes the stored data into various CSV files"""
         logging.debug('process_data called')
 
-        pd_time_series = pd.read_csv(f'{self.out_dir}/downloaded/'
+        pd_time_series = pd.read_csv(f'{self.out_dir}docs/downloaded/'
                                      f'{self.filename}')
 
         pd_time_series = pd_time_series.drop('Lat', axis=1)
@@ -90,18 +92,14 @@ class Covid19Processing:
 
         pd_edit_series = pd_edit_series.T
 
-        # Future addition
-        # pd_edit_series.loc[:, 'Daily Total'] =
-        # pd_edit_series.sum(numeric_only=True, axis=1)
-
         return pd_edit_series
 
     def write_csv_files(self, pd_edit_series):
         """writes CSV files to out_dir"""
-        logging.debug(f'write_csv_files called. File saved to:'
-                      f'{self.out_dir}/edited_csv/{self.filename}')
+        logging.debug('write_csv_files called. File saved to:'
+                      '%sdocs/edited_csv/%s', self.out_dir, self.filename)
 
-        pd_edit_series.to_csv(f'{self.out_dir}/edited_csv/'
+        pd_edit_series.to_csv(f'{self.out_dir}docs/edited_csv/'
                               f'edited_{self.filename}',
                               encoding='utf-8')
 
@@ -110,8 +108,8 @@ class Covid19Processing:
         """
         A function where the imported data will be further
         edited in a more extensive manner.
+        e.g. split in to csv file per geographical region
         """
-
         country_dict = {
             'europe': ['United Kingdom', 'France', 'Spain', 'Belgium',
                        'Finland', 'Sweden', 'Germany', 'Croatia',
@@ -173,7 +171,7 @@ class Covid19Processing:
                        'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
                        'Republic of Congo', 'Tanzania', 'Mayotte',
                        'Benin', 'Liberia', 'Somalia', 'The Gambia',
-                       'Gambia, The', 'Zambia', 'Mauritius'],
+                       'Gambia, The', 'Zambia', 'Mauritius', 'Chad'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
@@ -199,7 +197,7 @@ class Covid19Processing:
                          'Virgin Islands (US)', 'Saint Martin',
                          'Saint Berthelemy', 'Bermuda',
                          'Saint Pierre and Miquelon', 'Cuba', 'Guyana',
-                         'Curacao', 'The Bahamas'],
+                         'Curacao', 'The Bahamas', 'Bahamas, The'],
 
             'oceania': ['Australia', 'New Zealand', 'New Caledonia',
                         'Norfolk Island', 'Nauru', 'Niue',
@@ -269,8 +267,8 @@ class Covid19Processing:
         # Segment of code it to catch any straggler countries not
         # accounted for in the country_dict
         remove_list = []
-        for list in all_lists:
-            for countries in list:
+        for region in all_lists:
+            for countries in region:
                 if countries in others:
                     if countries not in remove_list:
                         remove_list.append(countries)
@@ -284,8 +282,8 @@ class Covid19Processing:
             sys.exit()
 
         total_count_list = []
-        for list in for_total:
-            for country in list:
+        for region in for_total:
+            for country in region:
                 if country not in total_count_list:
                     total_count_list.append(country)
         # -----------------------------------------------------------
@@ -305,6 +303,7 @@ class Covid19Processing:
                     'UK': uk_csv, 'diamond': diamond_csv,
                     'italy': italy_csv, 'oceania': oceania_csv,
                     'africa': africa_csv}
+
         backup_frame = pd_edit_series.copy()
         backup_frame['Global_Cases'] = \
             backup_frame.sum(axis=1)
@@ -354,21 +353,23 @@ class Covid19Processing:
         """
         Saving The new edited csvs and total csv
         """
-        logging.debug(f'write_new_csvs called. File saved to:'
-                      f'{self.out_dir}edited_csv/')
+        logging.debug('write_new_csvs called. File saved to:'
+                      '%sdocs/edited_csv/', self.out_dir)
 
-        pd_edit_series.to_csv(f'{self.out_dir}edited_csv/'
-                              f'edited_location_totals',
+        pd_edit_series.to_csv(f'{self.out_dir}docs/edited_csv/'
+                              f'edited_location_totals.csv',
                               encoding='utf-8')
 
         for country, csv in csv_list.items():
-            csv.to_csv(f'{self.out_dir}edited_csv/edited_{country}')
+            csv.to_csv(f'{self.out_dir}docs/edited_csv/edited_'
+                       f'{country}.csv')
 
     @staticmethod
     def round_up(number, decimals=0):
         """
         A function to aid in the production of more
-        flexible y axis integers
+        a y axis which rises above the highest data value
+        (increases readability)
         """
         multiplier = 10 ** decimals
         return math.ceil(number * multiplier) / multiplier
@@ -376,11 +377,16 @@ class Covid19Processing:
     def plot_data(self, data, backup_frame):
         """
         A function to plot the graphs with an increased 'ceiling'
+        (caused by round_up)
         """
         title = self.filename.split('-')
         final_titles = title[2].split('.')
         self.final_title_sub = final_titles[0].lower()
 
+        # Accounts for the three types of graph required
+        # date for archival purposes
+        # web for the web server and
+        # log for the logarithmic graphs
         graph_list = ['date', 'web', 'log']
         for mode in graph_list:
             for column in data.columns:
@@ -417,7 +423,9 @@ class Covid19Processing:
                     rounded_max += 2000
                     axes.set_ylim([0, rounded_max])
 
-                # Adds Labels to annotate the last data point for each plot
+                # -----------------------------------------------------
+                # Adds Labels to annotate the last data point for each
+                # plot
                 y_axis1 = data[column][-1]
                 y_axis2 = data['Rest of the World'][-1]
 
@@ -427,6 +435,7 @@ class Covid19Processing:
                 plt.annotate(y_axis2, (x_axis[-1], y_axis2 + 500),
                              bbox=dict(facecolor='red', alpha=0.5),
                              fontsize=12)
+                # -----------------------------------------------------
 
                 # Required in order to stop the column from summing
                 # the total of each run through the loop
@@ -435,29 +444,29 @@ class Covid19Processing:
                 data = data.drop('Rest of the World', axis=1)
 
                 if mode == 'log':
-                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                    dir_name = f'{self.out_dir}docs/graphics/' \
                                     f'log_' \
                                     f'{self.final_title_sub}_for_' \
                                     f'{column}.png'
                 elif mode == 'date':
-                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                    dir_name = f'{self.out_dir}docs/graphics/' \
                                     f'{x_axis[-1]}-2020-' \
                                     f'{self.final_title_sub}_for_{column}.png'
 
                 elif mode == 'web':
-                    self.dir_name = f'{self.out_dir}docs/graphics/' \
+                    dir_name = f'{self.out_dir}docs/graphics/' \
                                     f'{self.final_title_sub}_for_{column}.png'
 
                 else:
                     print('error')
 
-                fig.savefig(self.dir_name, transparent=False, dpi=300,
+                fig.savefig(dir_name, transparent=False, dpi=300,
                             bbox_inches="tight")
 
-                if os.path.exists(self.dir_name):
-                    logging.debug(f'File saved at: {self.dir_name}')
+                if os.path.exists(dir_name):
+                    logging.debug('File saved at: %s', {dir_name})
                     print(f'Files saved at:\n'
-                          f'{self.dir_name}\n')
+                          f'{dir_name}\n')
                 else:
                     logging.debug('Failed to save')
                 logging.debug(os.getcwd())
@@ -487,6 +496,7 @@ class Covid19Processing:
         save_to = f'{self.out_dir}docs/graphics/interactive_plot_for_' \
                   f'{self.final_title_sub}.html'
         print(f'Interactive plot saved to:\n{save_to}')
+        logging.debug('Interactive plot saved to:\n%s', save_to)
 
         with open(save_to, 'w') as int_plot:
             int_plot.write(plotted)
