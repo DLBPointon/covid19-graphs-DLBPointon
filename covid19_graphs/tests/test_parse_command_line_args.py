@@ -8,7 +8,6 @@ import os
 import sys
 import requests
 import matplotlib.pyplot as plt
-import pandas as pd
 from covid19_graphs.command_line_script import parse_command_line_args
 
 
@@ -41,5 +40,8 @@ def test_with_invalid_option_raises_error():
 
 
 def test_supply_2_strings_raises_error():
+    """
+    User passes two arguments which should return an error
+    """
     with pytest.raises(SystemExit):
         parse_command_line_args(test_override=['1', '2'])
