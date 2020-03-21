@@ -130,7 +130,7 @@ class Covid19Processing:
                        'Svalbard and Jan Mayen', 'Slovakia',
                        'Turkey', 'Serbia', 'Montenegro',
                        'Aland Islands', 'Guernsey',
-                       'Island of Man', 'Jersey', 'Kosovo'],
+                       'Island of Man', 'Jersey', 'Kosovo', 'Angola'],
 
             'asia': ['Thailand', 'Japan', 'Singapore', 'Mongolia',
                      'Nepal', 'Malaysia', 'Sri Lanka', 'Philippines',
@@ -171,7 +171,8 @@ class Covid19Processing:
                        'Namibia', 'Rwanda', 'Sudan', 'Seychelles',
                        'Republic of Congo', 'Tanzania', 'Mayotte',
                        'Benin', 'Liberia', 'Somalia', 'The Gambia',
-                       'Gambia, The', 'Zambia', 'Mauritius', 'Chad'],
+                       'Gambia, The', 'Zambia', 'Mauritius', 'Chad',
+                       'Madagascar', 'Cabo Verde', 'Niger', 'Zimbabwe'],
 
             'americas': ['Brazil', 'Mexico', 'Ecuador',
                          'Dominican Republic', 'Argentina',
