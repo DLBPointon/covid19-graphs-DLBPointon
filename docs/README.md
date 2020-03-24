@@ -1,6 +1,5 @@
 |  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |  [CSV Page](csv_page.md)  |
 ## Welcome to the Covid19-Assignment
-### By S.I.D. 1836811
 
 ---
 SITE IS NOW BASED ON A DEPRECIATED DATA STRUCTURE. FOR MORE INFORMATION PLEASE CHECK 
@@ -91,7 +90,7 @@ The CDC have also released [Q&A's](https://www.cdc.gov/coronavirus/2019-ncov/spe
 
 
 ### Support or Contact
-This page is being supported by S.I.D. 1836811 and being used as evidence for the Anglia Ruskin University
+This page is being supported A STUDENT and being used as evidence for the Anglia Ruskin University
 Apprenticeship programme - BSc Bioinformatics (Data Science) in association with The Sanger Institute.
 
-If you find an issue with this page then please leave an issue on: https://github.com/DLBPointon/dlbpointon.github.io/issues
+If you find an issue with this page then please leave an issue on the [Issue Page](https://github.com/ARU-Bioinf-ISE/covid19-graphs-DLBPointon/issues)
