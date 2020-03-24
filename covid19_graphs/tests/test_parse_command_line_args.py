@@ -37,4 +37,3 @@ def test_supply_2_strings_raises_error():
     """
     with pytest.raises(SystemExit):
         parse_command_line_args(test_override=['1', '2'])
-
