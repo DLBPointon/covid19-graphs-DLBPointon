@@ -38,7 +38,3 @@ def test_supply_2_strings_raises_error():
     with pytest.raises(SystemExit):
         parse_command_line_args(test_override=['1', '2'])
 
-def test_create_out_dir():
-    """
-    Testing for the production of an out_directory
-    """
