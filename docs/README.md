@@ -85,6 +85,7 @@ The CDC have also released [Q&A's](https://www.cdc.gov/coronavirus/2019-ncov/spe
 
 
 ### Support or Contact
-This page is being supported by S.I.D. 1836811 and being used as evidence for the Anglia Ruskin University Apprenticeship programme - BSc Bioinformatics (Data Science) in association with The Sanger Institute.
+This page is being supported by S.I.D. 1836811 and being used as evidence for the Anglia Ruskin University
+Apprenticeship programme - BSc Bioinformatics (Data Science) in association with The Sanger Institute.
 
 If you find an issue with this page then please leave an issue on: https://github.com/DLBPointon/dlbpointon.github.io/issues

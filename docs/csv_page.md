@@ -1,7 +1,7 @@
 |  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |  [CSV Page](csv_page.md)  |
 # A Page for CSV files
 This page will provide links to the appropriate files containing the raw data for each geographical region.
-
+CSV's can be downloaded by finding the RAW download on the GitHub website.
 #### Downloaded CSV from John Hopkins
 [Confirmed CSV](https://github.com/ARU-Bioinf-ISE/covid19-graphs-DLBPointon/blob/master/docs/downloaded/time_series_19-covid-Confirmed.csv)
 
