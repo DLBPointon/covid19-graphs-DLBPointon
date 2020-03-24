@@ -5,6 +5,7 @@
 ---
 SITE IS NOW BASED ON A DEPRECIATED DATA STRUCTURE. FOR MORE INFORMATION PLEASE CHECK 
 [THIS LINK](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series).
+
 ---
 
 All graphs will contain the value of the final data point in order to make them more understandable.
