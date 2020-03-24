@@ -1,8 +1,11 @@
 |  [Home](README.md)  |  [Confirmed Cases](confirmed_cases.md)  |  [Recovered Cases](recovered_cases.md)  |  [Deaths](death_cases.md)  |  [Daily Cases](daily_cases.md)  |  [CSV Page](csv_page.md)  |
 ## Welcome to the Covid19-Assignment
 ### By S.I.D. 1836811
+
+---
 SITE IS NOW BASED ON A DEPRECIATED DATA STRUCTURE. FOR MORE INFORMATION PLEASE CHECK 
 [THIS LINK](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series).
+---
 
 All graphs will contain the value of the final data point in order to make them more understandable.
 The currently more important regions will be previewed here.
