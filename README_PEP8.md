@@ -40,16 +40,16 @@ Your code has been rated at 9.72/10 (previous run: 9.72/10, +0.00)
 
 ```
 
-## justification for pylint warnings
+## Justifications for pylint warnings
 
 - W0611: Unused import: This is to be ignored, the import is essential to the use of the
 bokehplot function in covid19_processing.py
 
-- R0914
+- R0914 - Not Justified - Could have been simplified by the use of a dictionary rather than a large number of lists.
 
 - R1702 - This is required to sort the countries in to their respective regions
 found in the original CSV's
 
-- R0915
+- R0915 - Not Justified - could be fixed by splitting the data function into multiple functions, but this would require significant work.
 
-- R0912
+- R0912 - See above.
