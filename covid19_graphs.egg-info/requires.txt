@@ -1,2 +1,5 @@
 pytest
 requests
+matplotlib
+pandas
+pandas-bokeh
