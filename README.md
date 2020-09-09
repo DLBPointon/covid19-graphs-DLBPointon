@@ -4,6 +4,9 @@
 
 # A tool to download and plot Covid-19 disease outbreak data
 
+## NO LONGER MAINTAINED -
+## SOFTWARE DEVELOPMENT COURSEWORK 2020
+
 Please see [README_instructions.md](README_instructions.md)
 
 
